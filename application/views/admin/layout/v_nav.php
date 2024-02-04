@@ -3,36 +3,34 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Home</div>
-                            <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'dashboard' ? 'active' : '') ?>" href="<?= base_url() ?>" href="<?= base_url() ?>dashboard">
+                            <a class="nav-link <?php echo ($title == 'Dashboard' ? 'active' : '') ?>" href="<?= base_url() ?>">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
-                            <div class="sb-sidenav-menu-heading">Master</div>
-                            <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'sampel' ? 'active' : '') ?>" href="<?= base_url() ?>sampel">
-                                <div class="sb-nav-link-icon"><i class="fas fa-vials"></i></div>
-                                Data Sampel
+                            <div class="sb-sidenav-menu-heading">
+                                <i class="fa-regular fa-folder-closed"></i>
+                                Kelola Data
+                            </div>
+                            <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'informasi' ? 'active' : '') ?>" href="<?= base_url() ?>informasi">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-caret-right"></i></div>
+                                Kelola Informasi
                             </a>
                             <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'lhu' ? 'active' : '') ?>" href="<?= base_url() ?>lhu">
-                                <div class="sb-nav-link-icon"><i class="far fa-file-alt"></i></div>
-                                Lembar Hasil Uji
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-caret-right"></i></div>
+                                Kelola Form Pendaftaran
                             </a>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                                <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
-                                Laporan
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'laporan' ? 'active' : '') ?>" href="<?= base_url() ?>laporan">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-caret-right"></i></div>
+                                Kelola Laporan
                             </a>
-                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="<?= base_url('sampel/laporan') ?>">
-                                        <i class="fas fa-vials me-2"></i>
-                                        Data Sampel
-                                    </a>
-                                    <a class="nav-link" href="<?= base_url() ?>lhu/laporan">
-                                        <i class="far fa-file-alt me-2"></i>
-                                        Lembar Hasil Uji
-                                    </a>
-                                </nav>
-                            </div>
+                            <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'seleksi' ? 'active' : '') ?>" href="<?= base_url() ?>seleksi">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-caret-right"></i></div>
+                                Kelola Seleksi
+                            </a>
+                            <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'lhu' ? 'active' : '') ?>" href="<?= base_url() ?>lhu">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-caret-right"></i></div>
+                                Kelola Data Calon Peserta Didik
+                            </a>
                             <div class="sb-sidenav-menu-heading">Option</div>
                             <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'pengguna' ? 'active' : '') ?>" href="<?= base_url() ?>main/pengguna">
                                 <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
