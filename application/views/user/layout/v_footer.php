@@ -1,7 +1,7 @@
     <footer>
         <div class="container my-3">
             <div class="row d-flex justify-content-center">
-                <div class="col-md-4 my-2">
+                <div class="col-md-4 mt-2">
                     <div class="card">
                         <div class="card-body">
                             <p>Jumlah Terdaftar</p>
@@ -9,7 +9,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 mt-2">
                     <div class="card">
                         <div class="card-body">
                             <p>Jumlah Terverifikasi</p>
