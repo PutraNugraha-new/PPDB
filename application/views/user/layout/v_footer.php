@@ -1,4 +1,24 @@
-<footer>
+    <footer>
+        <div class="container my-3">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-4 my-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <p>Jumlah Terdaftar</p>
+                            <p>50</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p>Jumlah Terverifikasi</p>
+                            <p>50</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         Copyright 2024-SDN 1 Kampuri
     </footer>
 

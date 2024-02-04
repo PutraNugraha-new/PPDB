@@ -6,13 +6,12 @@
 
 html {
     scroll-behavior: smooth;
-    background-color: #FFF3DA;
 }
 
-
 :root{
-    --main-color:#D0BFFF;
-    --second-color:#BEADFA;
+    --main-color:#92C7CF;
+    --second-color:#AAD7D9;
+    --third-color:#FBF9F1;
     --main-font:"Lora", serif;
 }
 
@@ -20,7 +19,7 @@ html {
     color: #fff;
 }
 .navbar{
-    background-color: var(--second-color);
+    background-color: var(--main-color);
     padding-left: 2em !important;
     padding-right: 2em !important;
 }
@@ -34,72 +33,59 @@ html {
 }
 
 .jumbotron {
-    position: relative;
-    background-image: url('../images/bg-blesing.jpg');
-    background-size: cover;
-    background-position: center;
     height: 90vh;
     margin-bottom: 0;
     font-family: var(--main-font);
+    background-color: #fff!important;
+}
+.jumbotron .hero {
+    margin-left: 2.5em;
+}
+.jumbotron h1{
+    font-size: 30pt;
+    font-weight: bold;
+}
+.jumbotron p{
+    font-size: 13pt !important;
+    font-weight: 600;
 }
 
-.jumbotron::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Sesuaikan nilai alpha sesuai keinginan Anda */
-    z-index: 1; /* Tambahkan z-index agar overlay muncul di bawah elemen teks */
+.jumbotron h1,
+.jumbotron p{
+    margin-top: 1.25em;
+    color: var(--main-color);
 }
 
-.jumbotron h1.display-4,
-.jumbotron p.lead{
-    margin-top: 2em;
-    margin-left: 1.5em;
-    color: white !important; /* Tetap menetapkan warna teks secara eksplisit menjadi putih */
-    position: relative; /* Tambahkan position: relative agar z-index berlaku */
-    z-index: 2; /* Tambahkan z-index agar elemen teks muncul di atas overlay */
-}
-
-.jumbotron .btn{
-    z-index: 99;
-    position: relative;
-    background-color: transparent;
-    border: 3px solid  #fff;
-    border-radius: 50%;
-    top: 11em;
-    padding: 20px; 
-    cursor: pointer;
-    transition: background 0.3s, color 0.3s;
-}
-.jumbotron .btn .panah{
-    color: white !important;
-    font-size: 40px;
-    transition: color 0.3s;
-}
-.jumbotron .btn:hover{
-    background-color: #fff;
-}
-.jumbotron .btn:hover .panah{
-    color: #000 !important;
-}
 
 
 
 footer{
-    background-color: #f2f2f2;
+    background-color: var(--main-color);
+    color: #fff;
     /* margin: 2em 0 0 0; */
     padding: 1.25em;
     text-align: center;
     font-size: 12pt;
 }
 
+footer .container .card{
+    background-color: var(--second-color);
+    border: none;
+    box-shadow: 2px 2px rgba(0,0,0,.2);
+    font-size: 18pt;
+    font-weight: bold;
+}
+
 
 /* responsive mode */
 
 @media screen and (max-width: 767px) {
+    .jumbotron {
+        height: fit-content;
+    }
+    .jumbotron .hero {
+        margin-left: 0;
+    }
     .jumbotron h1.display-4{
         font-size: 25pt;
         text-align: center;
@@ -113,104 +99,7 @@ footer{
         display: flex;
         justify-content: center;
     }
-    .jumbotron .btn{
-        top: 0;
-        padding: 15px;
+    .jumbotron img{
+        display: none;
     }
-    .jumbotron .btn .panah{
-        font-size: 12pt;
-    }
-
-    .konten .kiri {
-        margin-top: 30px;
-        margin-left: 0;
-        display: flex;
-        justify-content: center;
-    }
-    .konten .kanan{
-        padding: 0em;
-        width: 96%;
-    }
-    .konten .kanan .img-fluid{
-        margin-left: auto;
-        margin-right: auto;
-    }
-    .konten .kanan h3{
-        font-size: 30pt;
-        text-align: center;
-    }
-    .konten .kanan p{
-        font-size: 13pt;
-        text-align: justify;
-        margin-left: 1em;
-        margin-right: 1em;
-    }
-
-    .konten .kanan .col-md-12, .col-md-10{
-        width: 97%;
-    }
-
-
-    .konten-2{
-        padding-top: 2em;
-    }
-
-    .konten-2 .kiri h3{
-        font-size: 20pt;
-        text-align: center;
-        /* margin-left: 2em; */
-    }
-    .konten-2 .kiri h4{
-        color: #8c8c8c;
-        font-size: 15pt;
-        text-align: center;
-    }
-    .konten-2  .kiri h3,h4{
-        margin-top: 0;
-        margin-left: 0;
-    }
-    
-    .konten-2 .kanan h2{
-        margin-top: 2em;
-        font-size: 25pt;
-        text-align: center;
-    }
-
-    .konten-2 .kanan .bangku{
-        margin-left: 2em;
-        width: 90%;
-        border-radius: 10px;
-        /* margin-bottom: 2em; */
-    }
-    
-    .konten-produk .img-produk img{
-        width: 80%;
-    }
-    
-    .konten-produk .garis{
-        margin-left: auto;
-        margin-right: auto;
-    }
-    .konten-produk .isi-produk{
-        margin-left: 0em;
-    }
-    .konten-produk p{
-        font-size: 20pt;
-        text-align: center;
-        margin-top: 1em;
-    }
-    .konten-produk h4{
-        text-align: center;
-    }
-    
-    .konten-produk .btn{
-        margin-top: 1em;
-        margin-right: auto;
-        margin-left: auto;
-    }
-    .konten-produk .btn:hover{
-        background-color: var(--second-color);
-        color: #fff;
-    }
-
 }

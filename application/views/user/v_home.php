@@ -1,14 +1,12 @@
 <!-- jumbotron -->
-<div class="jumbotron m-0">
-        <div class="row">
-            <div class="col-md-10">
-                <h1 class="display-4">Blessing Home Art</h1>
-                <p class="lead text-light">Ruang Anda, Karya Kami: Penuhi Keindahan Rumah Anda dengan Furniture Berkualitas Tinggi.</p>
+<div class="jumbotron m-0 ">
+        <div class="row ">
+            <div class="col-md-5 hero">
+                <h1 class="display-4">Sekolah Dasar Negeri 1 Kampuri</h1>
+                <p class="lead">"Taklukkan langkah pertama menuju masa depan gemilangmu! Daftarlah sekarang dan jadilah bagian dari perjalanan inspiratif di sekolah kami. Bersiaplah untuk menemukan potensimu yang tiada batas!"</p>
             </div>
-            <div class="col-md-2">
-                <a href="#konten" class="btn">
-                    <i class="fa-solid fa-arrow-down panah"></i>
-                </a>
+            <div class="col-md-6 d-flex justify-content-end">
+                <img src="<?= base_url() ?>/assets/images/samples/hero.png" class="img-fluid" alt="Hero">
             </div>
         </div>
     </div>
