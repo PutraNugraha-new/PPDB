@@ -15,13 +15,13 @@
                     </a>
                 </li>
                 <li class="nav-item mx-2">
-                    <a class="nav-link text-light" href="<?= base_url() ?>welcome/produk">
+                    <a class="nav-link text-light" href="<?= base_url() ?>welcome/info">
                         <i class="fa-solid fa-newspaper"></i>
                         Informasi
                     </a>
                 </li>
                 <li class="nav-item mx-2">
-                    <a class="nav-link text-light" href="<?= base_url() ?>welcome/produk">
+                    <a class="nav-link text-light" href="<?= base_url() ?>welcome/daftar">
                         <i class="fa-solid fa-right-to-bracket"></i>
                         Login / Daftar
                     </a>
@@ -29,19 +29,3 @@
             </ul>
         </div>
     </nav>
-
-<script>
-    $(document).ready(function () {
-        $.ajax({
-            url: '<?= base_url("welcome/countKuantitas") ?>',
-            method: 'post',
-            dataType:'json',
-            success:function(data){
-                $('#notifJumlah').text(data.total_quantity);
-            }, 
-            error: function (xhr, status, error) {
-                console.error("Error: " + status, error);
-            }
-        });
-    });
-</script>

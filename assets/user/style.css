@@ -9,8 +9,8 @@ html {
 }
 
 :root{
-    --main-color:#92C7CF;
-    --second-color:#AAD7D9;
+    --main-color:#2D3250;
+    --second-color:#424769;
     --third-color:#FBF9F1;
     --main-font:"Lora", serif;
 }
@@ -41,6 +41,11 @@ html {
 .jumbotron .hero {
     margin-left: 2.5em;
 }
+.jumbotron .hero .btn {
+    background-color: var(--second-color);
+    color: #fff;
+    width: fit-content;
+}
 .jumbotron h1{
     font-size: 30pt;
     font-weight: bold;
@@ -56,6 +61,19 @@ html {
     color: var(--main-color);
 }
 
+.informasi {
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+}
+.informasi h3{
+    text-align: center;
+    margin-bottom: 2em;
+    color: var(--second-color);
+}
+
+.informasi .list-group{
+    margin-bottom: 2em;
+}
 
 
 
@@ -85,6 +103,10 @@ footer .container .card{
     }
     .jumbotron .hero {
         margin-left: 0;
+    }
+    .jumbotron .hero a {
+        margin-right: auto;
+        margin-left: auto;
     }
     .jumbotron h1.display-4{
         font-size: 25pt;
