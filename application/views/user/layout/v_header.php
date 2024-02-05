@@ -23,8 +23,17 @@
                 <li class="nav-item mx-2">
                     <a class="nav-link text-light" href="<?= base_url() ?>welcome/daftar">
                         <i class="fa-solid fa-right-to-bracket"></i>
-                        Login / Daftar
+                        Daftar
                     </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa-solid fa-user"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="<?= base_url() ?>welcome/profile">Profile</a>
+                        <a class="dropdown-item text-danger" href="<?= base_url() ?>main/logout">Logout</a>
+                    </div>
                 </li>
             </ul>
         </div>
