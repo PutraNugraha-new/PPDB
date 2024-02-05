@@ -1,23 +1,42 @@
 $(document).ready(function(){
-    
-    var current_fs, next_fs, previous_fs; //fieldsets
-    var opacity;
-    
+
+    // Fungsi untuk memeriksa apakah semua input pada halaman saat ini telah diisi
+    function checkCurrentPageCompletion(current_fs) {
+        var isValid = true;
+        // Loop melalui setiap input pada halaman saat ini
+        current_fs.find('input, select').each(function(){
+            // Periksa apakah nilai input kosong
+            if($(this).val() === ''){
+                isValid = false;
+                return false; // Berhenti dari loop jika ada input yang kosong
+            }
+        });
+        return isValid;
+    }
+
     $(".next").click(function(){
+        // Mendapatkan elemen halaman formulir saat ini
+        var current_fs = $(this).parent();
+        // Memeriksa apakah semua input pada halaman saat ini telah diisi
+        if (!checkCurrentPageCompletion(current_fs)) {
+            alert('Mohon lengkapi semua input pada halaman ini sebelum melanjutkan.');
+            return; // Berhenti dari fungsi jika ada input yang kosong
+        }
+
         // Mendapatkan data formulir yang diisi
         var formData = $('#msform').serialize();
         var baseUrl = "<?php echo base_url(); ?>";
         var url = baseUrl + "welcome/registration";
-    
-        current_fs = $(this).parent();
-        next_fs = $(this).parent().next();
-    
+        
+        // Mendapatkan halaman berikutnya
+        var next_fs = $(this).parent().next();
+
         // Menambahkan kelas Active ke langkah berikutnya pada progress bar
         $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-    
+
         // Menampilkan langkah berikutnya
         next_fs.show(); 
-    
+
         // Mengirim data formulir ke controller menggunakan AJAX
         $.ajax({
             type: "POST",
@@ -33,13 +52,13 @@ $(document).ready(function(){
                 console.error(xhr.responseText); // Output pesan kesalahan ke konsol browser
             }
         });
-    
+
         // Menghilangkan langkah sebelumnya dengan animasi opacity
         current_fs.animate({opacity: 0}, {
             step: function(now) {
                 // Membuat animasi penampilan fieldset
-                opacity = 1 - now;
-    
+                var opacity = 1 - now;
+
                 current_fs.css({
                     'display': 'none',
                     'position': 'relative'
@@ -49,25 +68,24 @@ $(document).ready(function(){
             duration: 600
         });
     });
-    
-    
+
     $(".previous").click(function(){
         
-        current_fs = $(this).parent();
-        previous_fs = $(this).parent().prev();
+        var current_fs = $(this).parent();
+        var previous_fs = $(this).parent().prev();
         
         //Remove class active
         $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
         
         //show the previous fieldset
         previous_fs.show();
-    
+
         //hide the current fieldset with style
         current_fs.animate({opacity: 0}, {
             step: function(now) {
                 // for making fielset appear animation
-                opacity = 1 - now;
-    
+                var opacity = 1 - now;
+
                 current_fs.css({
                     'display': 'none',
                     'position': 'relative'
@@ -78,4 +96,6 @@ $(document).ready(function(){
         });
     });
 
+    // Memanggil fungsi untuk memeriksa formulir pada halaman saat ini saat halaman dimuat
+    checkCurrentPageCompletion($('fieldset.active'));
 });

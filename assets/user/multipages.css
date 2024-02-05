@@ -85,7 +85,7 @@ html {
 /*Blue Buttons*/
 #msform .action-button {
     width: fit-content;
-    background: skyblue;
+    background: #2D3250;
     font-weight: bold;
     color: white;
     border: 0 none;
@@ -96,7 +96,7 @@ html {
 }
 
 #msform .action-button:hover, #msform .action-button:focus {
-    box-shadow: 0 0 0 2px white, 0 0 0 3px skyblue;
+    box-shadow: 0 0 0 2px white, 0 0 0 3px #424769;
 }
 
 /*Previous Buttons*/
@@ -150,7 +150,7 @@ select.list-dt:focus {
 #progressbar {
     margin-bottom: 30px;
     overflow: hidden;
-    color: lightgrey;
+    color: #2D3250;
 }
 
 #progressbar .active {
@@ -160,7 +160,7 @@ select.list-dt:focus {
 #progressbar li {
     list-style-type: none;
     font-size: 12px;
-    width: 25%;
+    width: 20%;
     float: left;
     position: relative;
 }
@@ -214,7 +214,7 @@ select.list-dt:focus {
 
 /*Color number of the step and the connector before it*/
 #progressbar li.active:before, #progressbar li.active:after {
-    background: skyblue;
+    background: #2D3250;
 }
 
 /*Imaged Radio Buttons*/

@@ -217,6 +217,19 @@ class User_model extends CI_Model {
             $this->db->query($q);
             return $this->db->insert_id();
     }
+    public function addUserPengguna($d)
+    {  
+            $string = array(
+                'email'=>$d['email'],
+                'password'=>$d['password'], 
+                'role'=>$d['role'], 
+                'status'=>$this->status[1],
+                'banned_users'=>$d['banned_users']
+            );
+            $q = $this->db->insert_string('users',$string);             
+            $this->db->query($q);
+            return $this->db->insert_id();
+    }
     
     //update profile user
     public function updateProfile($post)
