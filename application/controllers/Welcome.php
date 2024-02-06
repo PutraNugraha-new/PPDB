@@ -18,78 +18,108 @@ class Welcome extends CI_Controller {
 
 	public function index()
     {
-        $data = array(
-            'title'=>'Dashboard',
-            'isi'   =>  'user/v_home',
-        );
+        $session = $this->session->userdata;
+        if(empty($session['email'])){
+            $data = array(
+                'title'=>'Dashboard',
+                'isi'   =>  'user/v_home',
+                // 'cek' => 'tes'
+            );
+        }else{
+            $data = array(
+                'title'=>'Dashboard',
+                'isi'   =>  'user/v_home',
+                'cek' => $session['role']
+            );
+        }
         // var_dump($data);
         $this->load->view('user/layout/v_wrapper', $data, FALSE);
     }
 
     public function info(){
-        $data = array(
-            'title' => 'Informasi',
-            'isi'   => 'user/v_info',
-        );
+        $session = $this->session->userdata;
+        if(empty($session['email'])){
+            $data = array(
+                'title' => 'Informasi',
+                'isi'   => 'user/v_info',
+            );
+        }else{
+            $data = array(
+                'title' => 'Informasi',
+                'isi'   => 'user/v_info',
+                'cek' => $session['role']
+            );
+        }
         $this->load->view('user/layout/v_wrapper',$data,FALSE);
     }
+
     public function profile(){
-        $dataSiswa = array(
-            'Email' => 'admin@example.com',
-            'Nama Lengkap' => 'John Doe',
-            'Nama Panggilan' => 'John',
-            'Jenis Kelamin' => 'Laki-Laki',
-            'Tempat Lahir' => 'Jakarta',
-            'Tanggal Lahir' => '1990-01-01',
-            'Agama' => 'Islam',
-            'Kewarganegaraan' => 'WNI',
-            'Anak ke' => 1,
-            'Jumlah Saudara' => 3,
-            'Bahasa Sehari - hari' => 'Bahasa Indonesia',
-            'Berat Badan' => 70,
-            'Tinggi Badan' => 175,
-            'Golongan Darah' => 'A',
-            'Riwayat Penyakit' => 'Tidak ada',
-            'Alamat Domisili' => 'Jl. Contoh No. 123',
-            'Nomor HP' => '08123456789',
-            'Jarak Tempat Tinggal' => 5,
-        );
-        $dataOrtu = array(
-            'nama_ayah' => 'Budi',
-            'nama_ibu' => 'Siti',
-            'pendidikan_ayah' => 'S1',
-            'pendidikan_ibu' => 'SMA',
-            'pekerjaan_ayah' => 'Karyawan',
-            'pekerjaan_ibu' => 'Ibu Rumah Tangga',
-            'nama_wali' => 'Wawan',
-            'pendidikan_wali' => 'SMA',
-            'pekerjaan_wali' => 'Wiraswasta',
-        );
-        $asalSekolah = array (
-            'asal_sekolah' => 'SMP Negeri 1',
-            'nama_tk' => 'TK Bintang',
-            'alamat_tk' => 'Jl. Bintang No. 1',
-            'tgl_sttb' => '2000-06-01',
-            'no_sttb' => '12345'
-        );
+        $session = $this->session->userdata;
+        if(empty($session['email'])){
+            redirect('welcome','refresh');
+        }else{
+            $dataSiswa = array(
+                'Email' => 'admin@example.com',
+                'Nama Lengkap' => 'John Doe',
+                'Nama Panggilan' => 'John',
+                'Jenis Kelamin' => 'Laki-Laki',
+                'Tempat Lahir' => 'Jakarta',
+                'Tanggal Lahir' => '1990-01-01',
+                'Agama' => 'Islam',
+                'Kewarganegaraan' => 'WNI',
+                'Anak ke' => 1,
+                'Jumlah Saudara' => 3,
+                'Bahasa Sehari - hari' => 'Bahasa Indonesia',
+                'Berat Badan' => 70,
+                'Tinggi Badan' => 175,
+                'Golongan Darah' => 'A',
+                'Riwayat Penyakit' => 'Tidak ada',
+                'Alamat Domisili' => 'Jl. Contoh No. 123',
+                'Nomor HP' => '08123456789',
+                'Jarak Tempat Tinggal' => 5,
+            );
+            $dataOrtu = array(
+                'nama_ayah' => 'Budi',
+                'nama_ibu' => 'Siti',
+                'pendidikan_ayah' => 'S1',
+                'pendidikan_ibu' => 'SMA',
+                'pekerjaan_ayah' => 'Karyawan',
+                'pekerjaan_ibu' => 'Ibu Rumah Tangga',
+                'nama_wali' => 'Wawan',
+                'pendidikan_wali' => 'SMA',
+                'pekerjaan_wali' => 'Wiraswasta',
+            );
+            $asalSekolah = array (
+                'asal_sekolah' => 'SMP Negeri 1',
+                'nama_tk' => 'TK Bintang',
+                'alamat_tk' => 'Jl. Bintang No. 1',
+                'tgl_sttb' => '2000-06-01',
+                'no_sttb' => '12345'
+            );
 
-
-        $data = array(
-            'title' => 'Profile',
-            'isi' => 'user/v_profile',
-            'siswa' => $dataSiswa,
-            'ortu' => $dataOrtu,
-            'asal' => $asalSekolah
-        );
-        $this->load->view('user/layout/v_wrapper',$data, FALSE);
+            $data = array(
+                'title' => 'Profile',
+                'isi' => 'user/v_profile',
+                'siswa' => $dataSiswa,
+                'ortu' => $dataOrtu,
+                'asal' => $asalSekolah,
+                'cek' => $session['role']
+            );
+            $this->load->view('user/layout/v_wrapper',$data, FALSE);
+        }
     }
 
     public function daftar(){
-        $data = array(
-            'title' => 'Pendaftaran',
-            'isi' => 'user/v_daftar'
-        );
-        $this->load->view('user/layout/v_wrapper', $data, FALSE);
+        $session = $this->session->userdata;
+        if(empty($session['email'])){
+            $data = array(
+                'title' => 'Pendaftaran',
+                'isi' => 'user/v_daftar'
+            );
+            $this->load->view('user/layout/v_wrapper', $data, FALSE);
+        }else{
+            redirect('welcome','refresh');
+        }
     }
 
     public function registration() {
@@ -150,5 +180,13 @@ class Welcome extends CI_Controller {
             // Jika bukan request POST, redirect atau tangani dengan cara lain sesuai kebutuhan aplikasi Anda
             redirect('welcome');
         }
+    }
+
+    public function login(){
+        $data = array(
+            'title' => 'Informasi',
+            'isi'   => 'user/v_login',
+        );
+        $this->load->view('user/layout/v_wrapper',$data,FALSE);
     }
 }

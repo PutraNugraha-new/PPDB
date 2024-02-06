@@ -33,12 +33,11 @@ class Users extends CI_Controller {
 	    $dataLevel = $this->userlevel->checkLevel($data['role']);
 	    //check user level
         
-	    $data['title'] = "Dashboard Admin";
 	    
         if(empty($this->session->userdata['email'])){
             redirect(site_url().'users/login/');
         }else{
-            redirect(site_url().'dashboard');
+            redirect(site_url().'welcome/profile');
         }
 
 	}
@@ -231,8 +230,8 @@ class Users extends CI_Controller {
                         );
                         // echo json_encode($response); // Output respons dalam format JSON
                         $this->M_pendaftaran->addPendaftaran($id, $response);
-                        $this->session->set_flashdata('success_message', 'Data Berhasil ditambahkan.');
-                        redirect(site_url().'welcome');
+                        $this->session->set_flashdata('success_message', 'Pendaftaran Berhasil Mohon Login ke Aplikasi.');
+                        redirect(site_url().'welcome/login');
                         exit;
                     }
                 }else{
@@ -310,17 +309,11 @@ class Users extends CI_Controller {
             $this->form_validation->set_rules('email', 'email', 'required');
             $this->form_validation->set_rules('password', 'Password', 'required');
             
-            $data['title'] = "Welcome Back!";
-            
             $result = $this->user_model->getAllSettings();
             $data['recaptcha'] = $result->recaptcha;
 
             if($this->form_validation->run() == FALSE) {
-                // $this->load->view('header', $data);
-                // $this->load->view('container');
-                // $this->load->view('login');
-                // $this->load->view('footer');
-                $this->load->view('login/index', $data);
+                redirect(site_url().'welcome/login');
             }else{
                 $post = $this->input->post();
                 $clean = $this->security->xss_clean($post);

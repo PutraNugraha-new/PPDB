@@ -20,12 +20,21 @@
                         Informasi
                     </a>
                 </li>
+                <?php if(empty($cek)): ?>
                 <li class="nav-item mx-2">
                     <a class="nav-link text-light" href="<?= base_url() ?>welcome/daftar">
-                        <i class="fa-solid fa-right-to-bracket"></i>
+                        <i class="fa-solid fa-file-pen"></i>
                         Daftar
                     </a>
                 </li>
+                <li class="nav-item mx-2">
+                    <a class="nav-link text-light" href="<?= base_url() ?>welcome/login">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                        Login
+                    </a>
+                </li>
+                <?php endif; ?>
+                <?php if(!empty($cek)): ?>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa-solid fa-user"></i>
@@ -35,6 +44,7 @@
                         <a class="dropdown-item text-danger" href="<?= base_url() ?>main/logout">Logout</a>
                     </div>
                 </li>
+                <?php endif; ?>
             </ul>
         </div>
     </nav>
