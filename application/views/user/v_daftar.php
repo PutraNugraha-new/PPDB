@@ -33,6 +33,7 @@
                                     <h2 class="fs-title">Informasi Akun</h2>
                                     <input type="email" name="email" placeholder="Email"/>
                                     <?php echo form_error('email');?>
+                                    <small class="text-danger">Isikan minimal 5 Karakter</small>
                                     <input type="password" name="password" placeholder="Password"/>
                                     <?php echo form_error('password');?>
                                     <input type="password" name="passconf" placeholder="Konfirmasi Password"/>
@@ -53,7 +54,14 @@
                                     <input type="text" name="tempat_lahir" placeholder="Tempat Lahir" required/>
                                     <small>Tanggal Lahir</small>
                                     <input type="date" name="tgl_lahir" class="form-control" required/>
-                                    <input type="text" name="agama"  placeholder="Agama" required/>
+                                    <select name="agama" id="agama" class="form-control mb-2" required>
+                                        <option value="">-- Pilih Agama --</option>
+                                        <option value="wni">ISLAM</option>
+                                        <option value="wna">KRISTEN</option>
+                                        <option value="wna">HINDU</option>
+                                        <option value="wna">BUDDHA</option>
+                                        <option value="wna">KONGHUCU</option>
+                                    </select>
                                     <select name="kewarganegaraan" id="kewarganegaraan" class="form-control mb-2" required>
                                         <option value="">-- Pilih Kewarganegaraan --</option>
                                         <option value="wni">WNI</option>

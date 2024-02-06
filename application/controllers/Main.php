@@ -9,7 +9,6 @@ class Main extends CI_Controller {
     function __construct(){
         parent::__construct();
         $this->load->model('User_model', 'user_model', TRUE);
-        $this->load->model('M_sampel', 'M_sampel', TRUE);
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
         $this->status = $this->config->item('status');
@@ -629,11 +628,7 @@ class Main extends CI_Controller {
             $data['recaptcha'] = $result->recaptcha;
 
             if($this->form_validation->run() == FALSE) {
-                // $this->load->view('header', $data);
-                // $this->load->view('container');
-                // $this->load->view('login');
-                // $this->load->view('footer');
-                $this->load->view('login/index', $data);
+                $this->load->view('admin/login/v_home', FALSE);
             }else{
                 $post = $this->input->post();
                 $clean = $this->security->xss_clean($post);
@@ -689,7 +684,7 @@ class Main extends CI_Controller {
                         $this->session->set_flashdata('danger_message', 'You’re temporarily banned from our website!');
                         redirect(site_url().'main/login');
                     }
-                    elseif($userInfo && $userInfo->banned_users == "unban") //recaptcha check, success login, ban or unban
+                    elseif($userInfo && $userInfo->banned_users == "unban" && $userInfo->role == '1') //recaptcha check, success login, ban or unban
                     {
                         foreach($userInfo as $key=>$val){
                         $this->session->set_userdata($key, $val);

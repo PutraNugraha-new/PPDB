@@ -41,7 +41,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="<?= base_url() ?>welcome/profile">Profile</a>
-                        <a class="dropdown-item text-danger" href="<?= base_url() ?>main/logout">Logout</a>
+                        <a class="dropdown-item text-danger" href="<?= base_url() ?>users/logout">Logout</a>
                     </div>
                 </li>
                 <?php endif; ?>

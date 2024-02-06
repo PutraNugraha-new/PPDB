@@ -9,6 +9,7 @@ class Welcome extends CI_Controller {
     function __construct(){
         parent::__construct();
         $this->load->model('User_model', 'user_model', TRUE);
+        $this->load->model('M_pendaftaran', 'M_pendaftaran', TRUE);
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
         $this->status = $this->config->item('status');
@@ -58,51 +59,12 @@ class Welcome extends CI_Controller {
         if(empty($session['email'])){
             redirect('welcome','refresh');
         }else{
-            $dataSiswa = array(
-                'Email' => 'admin@example.com',
-                'Nama Lengkap' => 'John Doe',
-                'Nama Panggilan' => 'John',
-                'Jenis Kelamin' => 'Laki-Laki',
-                'Tempat Lahir' => 'Jakarta',
-                'Tanggal Lahir' => '1990-01-01',
-                'Agama' => 'Islam',
-                'Kewarganegaraan' => 'WNI',
-                'Anak ke' => 1,
-                'Jumlah Saudara' => 3,
-                'Bahasa Sehari - hari' => 'Bahasa Indonesia',
-                'Berat Badan' => 70,
-                'Tinggi Badan' => 175,
-                'Golongan Darah' => 'A',
-                'Riwayat Penyakit' => 'Tidak ada',
-                'Alamat Domisili' => 'Jl. Contoh No. 123',
-                'Nomor HP' => '08123456789',
-                'Jarak Tempat Tinggal' => 5,
-            );
-            $dataOrtu = array(
-                'nama_ayah' => 'Budi',
-                'nama_ibu' => 'Siti',
-                'pendidikan_ayah' => 'S1',
-                'pendidikan_ibu' => 'SMA',
-                'pekerjaan_ayah' => 'Karyawan',
-                'pekerjaan_ibu' => 'Ibu Rumah Tangga',
-                'nama_wali' => 'Wawan',
-                'pendidikan_wali' => 'SMA',
-                'pekerjaan_wali' => 'Wiraswasta',
-            );
-            $asalSekolah = array (
-                'asal_sekolah' => 'SMP Negeri 1',
-                'nama_tk' => 'TK Bintang',
-                'alamat_tk' => 'Jl. Bintang No. 1',
-                'tgl_sttb' => '2000-06-01',
-                'no_sttb' => '12345'
-            );
+            $dataPendaftar = $this->M_pendaftaran->getData($session['id']);
 
             $data = array(
                 'title' => 'Profile',
                 'isi' => 'user/v_profile',
-                'siswa' => $dataSiswa,
-                'ortu' => $dataOrtu,
-                'asal' => $asalSekolah,
+                'dataPendaftar' => $dataPendaftar,
                 'cek' => $session['role']
             );
             $this->load->view('user/layout/v_wrapper',$data, FALSE);
@@ -125,13 +87,6 @@ class Welcome extends CI_Controller {
     public function registration() {
         // Periksa apakah request merupakan request POST
         if ($this->input->server('REQUEST_METHOD') === 'POST') {
-            // Tangkap data dari formulir
-            // $email = $this->input->post('email');
-            // $password = $this->input->post('password');
-            // $passconf = $this->input->post('passconf');
-            // $pekerjaan_ayah = $this->input->post('pekerjaan_ayah');
-            // Lakukan hal yang diperlukan dengan data ini, seperti validasi, penyimpanan ke database, dll.
-
             // Contoh respons kembali ke client
             $response = array(
                 'status' => 'success',

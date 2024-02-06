@@ -40,7 +40,7 @@ $(document).ready(function(){
         // Mengirim data formulir ke controller menggunakan AJAX
         $.ajax({
             type: "POST",
-            url: url, // Sesuaikan dengan alamat controller Anda
+            url: 'welcome/registration', // Sesuaikan dengan alamat controller Anda
             data: formData,
             success: function(response){
                 // Menangani respons dari controller jika diperlukan

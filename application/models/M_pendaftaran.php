@@ -4,6 +4,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_pendaftaran extends CI_Model {
     
+    public function getData($id){
+        $this->db->select('*');
+        $this->db->from('tb_pendaftaran');
+        $this->db->where('tb_pendaftaran.id', $id);
+        return $this->db->get()->result();
+    
+    }
+    public function getAll(){
+        $this->db->select('*');
+        $this->db->from('tb_pendaftaran');
+        return $this->db->get()->result();
+    
+    }
 
     public function addPendaftaran($id, $data) {
          // Memasukkan data ke dalam tabel 'pendaftaran'

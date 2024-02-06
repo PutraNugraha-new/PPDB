@@ -15,7 +15,7 @@
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-caret-right"></i></div>
                                 Kelola Informasi
                             </a>
-                            <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'lhu' ? 'active' : '') ?>" href="<?= base_url() ?>lhu">
+                            <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'formcalon' ? 'active' : '') ?>" href="<?= base_url() ?>formcalon">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-caret-right"></i></div>
                                 Kelola Form Pendaftaran
                             </a>
