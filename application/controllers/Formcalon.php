@@ -19,25 +19,59 @@ class Formcalon extends CI_Controller {
 
 	public function index()
     {
-        $data = array(
-            'title'=>'Data Form Pendaftar',
-            'isi'   =>  'admin/formcalon/v_home',
-            'pendaftar' => $this->M_pendaftaran->getAll(),
-            'user' => 'Admin'
-        );
-        // var_dump($data['pendaftar']);
-        // die();
-        $this->load->view('admin/layout/v_wrapper', $data, FALSE);
+        $data = $this->session->userdata;
+	    if(empty($data)){
+	        redirect(site_url().'main/login/');
+	    }
+
+	    //check user level
+	    if(empty($data['role'])){
+	        redirect(site_url().'main/login/');
+	    }
+        $dataLevel = $this->userlevel->checkLevel($data['role']);
+        //check user level
+        if(empty($this->session->userdata['email'])){
+            redirect(site_url().'main/login/');
+        }else{
+            if($dataLevel == 'is_admin'){
+                $data = array(
+                    'title'=>'Data Form Pendaftar',
+                    'isi'   =>  'admin/formcalon/v_home',
+                    'pendaftar' => $this->M_pendaftaran->getAll(),
+                    'user' => 'Admin'
+                );
+                $this->load->view('admin/layout/v_wrapper', $data, FALSE);
+            }else{
+                redirect('welcome');
+            }
+        }
     }
 
     public function tambah(){
-        $data = array(
-            'title'=>'Data Form Pendaftar',
-            'isi'   =>  'admin/formcalon/v_tambah',
-            'user' => 'Admin'
-        );
-        // var_dump($data['pendaftar']);
-        // die();
-        $this->load->view('admin/layout/v_wrapper', $data, FALSE);
+        $data = $this->session->userdata;
+	    if(empty($data)){
+	        redirect(site_url().'main/login/');
+	    }
+
+	    //check user level
+	    if(empty($data['role'])){
+	        redirect(site_url().'main/login/');
+	    }
+        $dataLevel = $this->userlevel->checkLevel($data['role']);
+        //check user level
+        if(empty($this->session->userdata['email'])){
+            redirect(site_url().'main/login/');
+        }else{
+            if($dataLevel == 'is_admin'){
+                $data = array(
+                    'title'=>'Data Form Pendaftar',
+                    'isi'   =>  'admin/formcalon/v_tambah',
+                    'user' => 'Admin'
+                );
+                $this->load->view('admin/layout/v_wrapper', $data, FALSE);
+            }else{
+                redirect('welcome');
+            }
+        }
     }
 }

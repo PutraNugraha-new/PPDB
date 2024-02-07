@@ -702,6 +702,86 @@ class Main extends CI_Controller {
 	    }
     }
 
+    public function adduserPengguna()
+    {
+        $this->form_validation->set_rules('email', 'email', 'required');
+        $this->form_validation->set_rules('password', 'Password', 'required|min_length[5]');
+        $this->form_validation->set_rules('passconf', 'Password Confirmation', 'required|matches[password]');
+        $this->form_validation->set_rules('email', 'email', 'required');
+
+        if ($this->form_validation->run() == FALSE) {
+            $data = array(
+                'title' => 'Form Calon Siswa',
+                'isi' => 'admin/formcalon/v_tambah'
+            );
+            $this->load->view('admin/layout/v_wrapper', $data, FALSE);
+        }else{
+            if($this->user_model->isDuplicate($this->input->post('email'))){
+                $this->session->set_flashdata('flash_message', 'Email sudah digunakan');
+                redirect(site_url().'formcalon/tambah');
+            }else{
+                $this->load->library('password');
+                $post = $this->input->post(NULL, TRUE);
+                $cleanPost = $this->security->xss_clean($post);
+                $hashed = $this->password->create_hash($cleanPost['password']);
+                $cleanPost['email'] = $this->input->post('email');
+                $cleanPost['banned_users'] = 'unban';
+                $cleanPost['role'] = '2';
+                $cleanPost['password'] = $hashed;
+                
+                unset($cleanPost['passconf']);
+                $id = $this->user_model->addUserPengguna($cleanPost);
+                //insert to database
+                if($id){
+                    if ($this->input->server('REQUEST_METHOD') === 'POST') {
+                        $response = array(
+                            'n_lengkap' => $this->input->post('n_lengkap'),
+                            'n_panggilan' => $this->input->post('n_panggilan'),
+                            'jk' => $this->input->post('jk'),
+                            'tempat_lahir' => $this->input->post('tempat_lahir'),
+                            'tgl_lahir' => $this->input->post('tgl_lahir'),
+                            'agama' => $this->input->post('agama'),
+                            'kewarganegaraan' => $this->input->post('kewarganegaraan'),
+                            'anak_ke' => $this->input->post('anak_ke'),
+                            'jml_saudara' => $this->input->post('jml_saudara'),
+                            'bahasa_seharihari' => $this->input->post('bahasa_seharihari'),
+                            'berat_bdn' => $this->input->post('berat_bdn'),
+                            'tinggi_bdn' => $this->input->post('tinggi_bdn'),
+                            'golongan_darah' => $this->input->post('golongan_darah'),
+                            'riwayat_penyakit' => $this->input->post('riwayat_penyakit'),
+                            'alamat_tt' => $this->input->post('alamat_tt'),
+                            'no_hp' => $this->input->post('no_hp'),
+                            'jarak_tt' => $this->input->post('jarak_tt'),
+                            'nama_ayah' => $this->input->post('nama_ayah'),
+                            'nama_ibu' => $this->input->post('nama_ibu'),
+                            'pendidikan_ayah' => $this->input->post('pendidikan_ayah'),
+                            'pendidikan_ibu' => $this->input->post('pendidikan_ibu'),
+                            'pekerjaan_ayah' => $this->input->post('pekerjaan_ayah'),
+                            'pekerjaan_ibu' => $this->input->post('pekerjaan_ibu'),
+                            'nama_wali' => $this->input->post('nama_wali'),
+                            'pendidikan_wali' => $this->input->post('pendidikan_wali'),
+                            'pekerjaan_wali' => $this->input->post('pekerjaan_wali'),
+                            'asal_sekolah' => $this->input->post('asal_sekolah'),
+                            'nama_tk' => $this->input->post('nama_tk'),
+                            'alamat_tk' => $this->input->post('alamat_tk'),
+                            'tgl_sttb' => $this->input->post('tgl_sttb'),
+                            'no_sttb' => $this->input->post('no_sttb')
+                        );
+                        // echo json_encode($response); // Output respons dalam format JSON
+                        $this->M_pendaftaran->addPendaftaran($id, $response);
+                        $this->session->set_flashdata('success_message', 'Data Calon Siswa Berhasil Ditambahkan.');
+                        redirect(site_url().'formcalon');
+                        exit;
+                    }
+                }else{
+                    $this->session->set_flashdata('error_message', 'Data Gagal ditambahkan.');
+                    redirect(site_url().'formcalon/tambah');
+                }
+                redirect(site_url().'formcalon');
+            };
+        }
+    }
+
     //Logout
     public function logout()
     {
