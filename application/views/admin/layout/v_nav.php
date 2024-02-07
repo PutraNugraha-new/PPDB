@@ -15,27 +15,27 @@
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-caret-right"></i></div>
                                 Kelola Informasi
                             </a>
-                            <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'formpendaftaran' ? 'active' : '') ?>" href="<?= base_url() ?>formcalon">
+                            <!-- <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'formpendaftaran' ? 'active' : '') ?>" href="<?= base_url() ?>formcalon">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-caret-right"></i></div>
                                 Kelola Form Pendaftaran
-                            </a>
+                            </a> -->
                             <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'laporan' ? 'active' : '') ?>" href="<?= base_url() ?>laporan">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-caret-right"></i></div>
                                 Kelola Laporan
                             </a>
-                            <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'seleksi' ? 'active' : '') ?>" href="<?= base_url() ?>seleksi">
+                            <!-- <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'seleksi' ? 'active' : '') ?>" href="<?= base_url() ?>seleksi">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-caret-right"></i></div>
                                 Kelola Seleksi
-                            </a>
+                            </a> -->
                             <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'formcalon' ? 'active' : '') ?>" href="<?= base_url() ?>formcalon">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-caret-right"></i></div>
                                 Kelola Data Calon Peserta Didik
                             </a>
                             <div class="sb-sidenav-menu-heading">Option</div>
-                            <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'pengguna' ? 'active' : '') ?>" href="<?= base_url() ?>pengguna">
+                            <!-- <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'pengguna' ? 'active' : '') ?>" href="<?= base_url() ?>pengguna">
                                 <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
                                 Data Pengguna
-                            </a>
+                            </a> -->
                             <a class="nav-link text-danger" href="<?php echo base_url().'main/logout' ?>" onClick="return confirm('Apakah Anda Ingin Keluar Aplikasi ?')">
                                 <div class="sb-nav-link-icon"><i class="fas fa-sign-out-alt text-danger"></i></div>
                                 Logout

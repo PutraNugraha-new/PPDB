@@ -33,6 +33,9 @@
                             <li class="nav-item">
                                 <a class="nav-link link-secondary" id="Tabasalsekolah" href="#"><i class="fa-solid fa-school-flag"></i> Data Asal Sekolah</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link link-secondary" id="TabberkasPersyaratan" href="#"><i class="fa-solid fa-file-lines"></i> Berkas Persyaratan</a>
+                            </li>
                         </ul>
                     </div>
                     <div class="row my-3" id="siswa">
@@ -195,6 +198,56 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row my-3" id="berkasPersyaratan" style="display: none;">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-hover" style="width: 100%;">
+                                    <tbody>
+                                        <form action="" method="post">
+                                            <?php foreach ($dataPendaftar as $data): ?>
+                                                <tr>
+                                                    <th scope="row" style="width: 20%;">IJAZAH TK DILEGALISIR</th>
+                                                    <td>
+                                                        <small>Nama File :  </small>
+                                                        <input type="file" name="ijazah" class="form-control">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row" style="width: 20%;">AKTA KELAHIRAN</th>
+                                                    <td>
+                                                        <small>Nama File :  </small>
+                                                        <input type="file" name="akta" class="form-control">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row" style="width: 20%;">KARTU KELUARGA</th>
+                                                    <td>
+                                                        <small>Nama File :  </small>
+                                                        <input type="file" name="kk" class="form-control">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row" style="width: 20%;">PAS PHOTO UKURAN 3X4 (BAJU SD)</th>
+                                                    <td>
+                                                        <small>Nama File :  </small>
+                                                        <input type="file" name="photo" class="form-control">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row" style="width: 20%;">KARTU VAKSIN (JIKA ADA)</th>
+                                                    <td>
+                                                        <small>Nama File :  </small>
+                                                        <input type="file" name="kartu_vaksin" class="form-control">
+                                                        <button class="btn btn-primary mt-3">Perbarui data</button>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        </form>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -226,5 +279,16 @@
         document.querySelector(".Tabsiswa").classList.remove("active");
         document.querySelector(".TaborangTua").classList.remove("active");
         document.querySelector(".Tabasalsekolah").classList.add("active");
+    });
+    document.getElementById("TabberkasPersyaratan").addEventListener("click", function(event) {
+        event.preventDefault();
+        document.getElementById("siswa").style.display = "none";
+        document.getElementById("OrangTua").style.display = "none";
+        document.getElementById("asalSekolah").style.display = "none";
+        document.getElementById("berkasPersyaratan").style.display = "block";
+        document.querySelector(".Tabsiswa").classList.remove("active");
+        document.querySelector(".TaborangTua").classList.remove("active");
+        document.querySelector(".Tabasalsekolah").classList.remove("active");
+        document.querySelector(".berkasPersyaratan").classList.add("active");
     });
 </script>
