@@ -52,7 +52,8 @@ class M_pendaftaran extends CI_Model {
             'nama_tk' => $data['nama_tk'],
             'alamat_tk' => $data['alamat_tk'],
             'tgl_sttb' => $data['tgl_sttb'],
-            'no_sttb' => $data['no_sttb']
+            'no_sttb' => $data['no_sttb'],
+            'status' => 'Verifikasi'
         ));
 
         // Periksa apakah data berhasil dimasukkan ke dalam database
@@ -62,5 +63,18 @@ class M_pendaftaran extends CI_Model {
             return false; // Jika gagal
         }
     }
+
+    public function delete($id) {
+        return $this->db->delete('tb_pendaftaran', array('id' => $id));
+    }
     
+    public function updateStatus($id_detail, $status) {
+        // Sesuaikan dengan struktur tabel dan query Anda
+        $data = array(
+            'status' => $status
+        );
+
+        $this->db->where('id_pendaftar', $id_detail);
+        $this->db->update('tb_pendaftaran', $data);
+    }
 }

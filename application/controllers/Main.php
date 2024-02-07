@@ -9,6 +9,7 @@ class Main extends CI_Controller {
     function __construct(){
         parent::__construct();
         $this->load->model('User_model', 'user_model', TRUE);
+        $this->load->model('M_pendaftaran', 'M_pendaftaran', TRUE);
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
         $this->status = $this->config->item('status');
@@ -733,7 +734,6 @@ class Main extends CI_Controller {
                 $id = $this->user_model->addUserPengguna($cleanPost);
                 //insert to database
                 if($id){
-                    if ($this->input->server('REQUEST_METHOD') === 'POST') {
                         $response = array(
                             'n_lengkap' => $this->input->post('n_lengkap'),
                             'n_panggilan' => $this->input->post('n_panggilan'),
@@ -772,7 +772,6 @@ class Main extends CI_Controller {
                         $this->session->set_flashdata('success_message', 'Data Calon Siswa Berhasil Ditambahkan.');
                         redirect(site_url().'formcalon');
                         exit;
-                    }
                 }else{
                     $this->session->set_flashdata('error_message', 'Data Gagal ditambahkan.');
                     redirect(site_url().'formcalon/tambah');

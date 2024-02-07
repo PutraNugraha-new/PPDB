@@ -74,4 +74,48 @@ class Formcalon extends CI_Controller {
             }
         }
     }
+
+    //delete user
+    public function deleteuser($id) {
+        $data = $this->session->userdata;
+        if(empty($data['role'])){
+            redirect(site_url().'main/login/');
+        }
+        $dataLevel = $this->userlevel->checkLevel($data['role']);
+        //check user level
+
+        //check is admin or not
+        if($dataLevel == "is_admin"){
+            $this->user_model->deleteUser($id);
+            if($this->user_model->deleteUser($id) == FALSE )
+            {
+                $this->session->set_flashdata('error_message', 'Error, tidak dapat menghapus pengguna!');
+            }
+            else
+            {   
+                $this->M_pendaftaran->delete($id);
+                $this->session->set_flashdata('success_message', 'Pendaftar berhasil dihapus.');
+            }
+            redirect(site_url().'formcalon');
+        }else{
+            redirect(site_url().'main/');
+        }
+    }
+
+    public function updatestatus(){
+        if ($this->input->is_ajax_request()) {
+            $id_detail = $this->input->post('id');
+            $status = $this->input->post('status');
+
+            // Panggil model untuk mengupdate jumlah di database
+            $this->M_pendaftaran->updateStatus($id_detail, $status);
+
+            // Kirim tanggapan ke klien (jika diperlukan)
+            echo json_encode(['status' => 'success']);
+            exit;
+        } else {
+            // Tanggapan jika bukan permintaan Ajax
+            show_404();
+        }
+    }
 }

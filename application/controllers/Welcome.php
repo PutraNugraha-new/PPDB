@@ -33,7 +33,8 @@ class Welcome extends CI_Controller {
                 'cek' => $session['role']
             );
         }
-        // var_dump($data);
+        // var_dump($data['cek']);
+        // die();
         $this->load->view('user/layout/v_wrapper', $data, FALSE);
     }
 

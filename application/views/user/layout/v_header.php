@@ -35,6 +35,7 @@
                 </li>
                 <?php endif; ?>
                 <?php if(!empty($cek)): ?>
+                    <?php if($cek == '2'): ?>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa-solid fa-user"></i>
@@ -44,6 +45,7 @@
                         <a class="dropdown-item text-danger" href="<?= base_url() ?>users/logout">Logout</a>
                     </div>
                 </li>
+                <?php endif; ?>
                 <?php endif; ?>
             </ul>
         </div>

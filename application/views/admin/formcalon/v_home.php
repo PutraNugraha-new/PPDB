@@ -1,3 +1,15 @@
+<?php if ($this->session->flashdata('success_message')): ?>
+                    <div class="alert alert-success alert-dismissible fade show mt-1" role="alert">
+                        <?= $this->session->flashdata('success_message'); ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <?php endif; ?>
+                <?php if ($this->session->flashdata('error_message')): ?>
+                    <div class="alert alert-danger alert-dismissible fade show mt-1" role="alert">
+                        <?= $this->session->flashdata('error_message'); ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <?php endif; ?>
 <div class="card mt-3">
     <div class="card-header">
         <h4>Daftar Pendaftar</h4>
@@ -88,12 +100,10 @@
                 <?php foreach ($pendaftar as $data): ?>
                 <tr>
                     <td>
-                        <a href="" class="btn btn-danger">Hapus</a>
+                        <a href="<?= base_url() ?>formcalon/deleteuser/<?= $data->id ?>" class="btn btn-danger" onClick="return confirm('Yakin Ingin Menghapus Data?')">Hapus</a>
                     </td>
                     <td>
-                        <div class="badge <?= $data->status == 'Verifikasi' ? 'badge-danger' : 'badge-success'; ?>">
-                            <?= $data->status ?>
-                        </div>
+                        <button class="badge <?= $data->status == 'Verifikasi' ? 'badge-danger' : 'badge-success'; ?> p-1 status" data-status="<?= $data->status ?>" data-id="<?= $data->id_pendaftar ?>"><?= $data->status ?></button>
                     </td>
                     <td><?= $data->n_lengkap ?></td>
                     <td><?= $data->n_panggilan ?></td>
@@ -131,3 +141,43 @@
         </table>
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('.status').each(function() {
+            var currentStatus = $(this).data('status');
+            if (currentStatus === 'Verifikasi') {
+                $(this).removeClass('badge-success').addClass('badge-danger');
+            } else if (currentStatus === 'Lolos') {
+                $(this).removeClass('badge-danger').addClass('badge-success');
+            }
+        });
+        $('.status').on('click', function() {
+            var id = $(this).data('id');
+            var currentStatus = $(this).data('status');
+            var newStatus = (currentStatus === 'Lolos') ? 'Verifikasi' : 'Lolos';
+
+            $.ajax({
+                url: '<?= base_url("formcalon/updatestatus") ?>',
+                data: {
+                    id : id,
+                    status: newStatus
+                },
+                method: 'post',
+                dataType:'json',
+                success:function(response){
+                    console.log(response);
+                    if (newStatus === 'Verifikasi') {
+                        $(this).removeClass('badge-success').addClass('badge-danger').text('Verifikasi');
+                    } else if (newStatus === 'Lolos') {
+                        $(this).removeClass('badge-danger').addClass('badge-success').text('Lolos');
+                    }
+                                        location.reload();
+                }, 
+                error: function (xhr, status, error) {
+                    console.error("Error: " + status, error);
+                }
+            });
+        });
+    });
+</script>
