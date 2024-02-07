@@ -27,7 +27,9 @@
             <thead>
                 <tr>
                     <th>Aksi</th>
-                    <th>Status</th>
+                    <th>
+                        <div class="col-12">Status Pendaftar</div>
+                    </th>
                     <th>Nama Lengkap</th>
                     <th>Nama Panggilan</th>
                     <th>Jenis Kelamin</th>
@@ -63,7 +65,7 @@
             <tfoot>
                 <tr>
                     <th>Aksi</th>
-                    <th>Status</th>
+                    <th><div class="col-12">Status Pendaftar</div></th>
                     <th>Nama Lengkap</th>
                     <th>Nama Panggilan</th>
                     <th>Jenis Kelamin</th>
@@ -103,7 +105,12 @@
                         <a href="<?= base_url() ?>formcalon/deleteuser/<?= $data->id ?>" class="btn btn-danger" onClick="return confirm('Yakin Ingin Menghapus Data?')">Hapus</a>
                     </td>
                     <td>
-                        <button class="badge <?= $data->status == 'Verifikasi' ? 'badge-danger' : 'badge-success'; ?> p-1 status" data-status="<?= $data->status ?>" data-id="<?= $data->id_pendaftar ?>"><?= $data->status ?></button>
+                        <select class="form-select status" data-id="<?= $data->id_pendaftar ?>">
+                            <option value="Verifikasi" <?= ($data->status == 'Verifikasi') ? 'selected' : '' ?>>Verifikasi</option>
+                            <option value="Lolos" <?= ($data->status == 'Lolos') ? 'selected' : '' ?>>Lolos</option>
+                            <option value="Diterima" <?= ($data->status == 'Diterima') ? 'selected' : '' ?>>Diterima</option>
+                            <option value="Ditolak" <?= ($data->status == 'Ditolak') ? 'selected' : '' ?>>Ditolak</option>
+                        </select>
                     </td>
                     <td><?= $data->n_lengkap ?></td>
                     <td><?= $data->n_panggilan ?></td>
@@ -144,18 +151,9 @@
 
 <script>
     $(document).ready(function() {
-        $('.status').each(function() {
-            var currentStatus = $(this).data('status');
-            if (currentStatus === 'Verifikasi') {
-                $(this).removeClass('badge-success').addClass('badge-danger');
-            } else if (currentStatus === 'Lolos') {
-                $(this).removeClass('badge-danger').addClass('badge-success');
-            }
-        });
-        $('.status').on('click', function() {
+        $('.status').on('change', function() {
             var id = $(this).data('id');
-            var currentStatus = $(this).data('status');
-            var newStatus = (currentStatus === 'Lolos') ? 'Verifikasi' : 'Lolos';
+            var newStatus = $(this).val();
 
             $.ajax({
                 url: '<?= base_url("formcalon/updatestatus") ?>',
@@ -167,12 +165,7 @@
                 dataType:'json',
                 success:function(response){
                     console.log(response);
-                    if (newStatus === 'Verifikasi') {
-                        $(this).removeClass('badge-success').addClass('badge-danger').text('Verifikasi');
-                    } else if (newStatus === 'Lolos') {
-                        $(this).removeClass('badge-danger').addClass('badge-success').text('Lolos');
-                    }
-                                        location.reload();
+                    location.reload();
                 }, 
                 error: function (xhr, status, error) {
                     console.error("Error: " + status, error);

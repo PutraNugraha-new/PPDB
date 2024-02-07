@@ -7,7 +7,6 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>NIK</th>
                     <th>Nama Pendaftar</th>
                     <th>Keterangan</th>
                 </tr>
@@ -15,7 +14,6 @@
             <tfoot>
                 <tr>
                     <th>No</th>
-                    <th>NIK</th>
                     <th>Nama Pendaftar</th>
                     <th>Keterangan</th>
                 </tr>
@@ -23,7 +21,6 @@
             <tbody>
                 <tr>
                     <td>1</td>
-                    <td>62021658792</td>
                     <td>Julistio Dido</td>
                     <td>
                         <button class="btn btn-success">Diterima</button>

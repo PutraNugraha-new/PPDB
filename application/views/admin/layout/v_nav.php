@@ -15,7 +15,7 @@
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-caret-right"></i></div>
                                 Kelola Informasi
                             </a>
-                            <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'formcalon' ? 'active' : '') ?>" href="<?= base_url() ?>formcalon">
+                            <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'formpendaftaran' ? 'active' : '') ?>" href="<?= base_url() ?>formcalon">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-caret-right"></i></div>
                                 Kelola Form Pendaftaran
                             </a>
@@ -27,12 +27,12 @@
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-caret-right"></i></div>
                                 Kelola Seleksi
                             </a>
-                            <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'lhu' ? 'active' : '') ?>" href="<?= base_url() ?>lhu">
+                            <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'formcalon' ? 'active' : '') ?>" href="<?= base_url() ?>formcalon">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-caret-right"></i></div>
                                 Kelola Data Calon Peserta Didik
                             </a>
                             <div class="sb-sidenav-menu-heading">Option</div>
-                            <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'pengguna' ? 'active' : '') ?>" href="<?= base_url() ?>main/pengguna">
+                            <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'pengguna' ? 'active' : '') ?>" href="<?= base_url() ?>pengguna">
                                 <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
                                 Data Pengguna
                             </a>
