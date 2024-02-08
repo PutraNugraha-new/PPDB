@@ -89,7 +89,7 @@ CREATE TABLE `tb_pendaftaran` (
   `photo` varchar(200) DEFAULT NULL,
   `kartu_vaksin` varchar(200) DEFAULT NULL,
   `surat_pernyataan` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tb_pendaftaran`

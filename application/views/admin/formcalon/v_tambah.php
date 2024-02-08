@@ -224,7 +224,11 @@
                                     <div class="form-group row">
                                         <label for="asal_sekolah" class="col-sm-4 col-form-label">Asal Sekolah</label>
                                         <div class="col-sm-6">
-                                            <input type="text" name="asal_sekolah" class="form-control" id="asal_sekolah" placeholder="Asal Sekolah" required>
+                                            <select name="asal_sekolah" id="asal_sekolah" class="form-control mb-2" required>
+                                                <option value="">-- Pilih Asal Sekolah --</option>
+                                                <option value="rumah_tangga">Rumah Tangga</option>
+                                                <option value="tk">Taman Kanak-Kanak</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -254,37 +258,37 @@
                                     <div class="form-group row">
                                         <label for="ijazah" class="col-sm-4 col-form-label">Ijazah</label>
                                         <div class="col-sm-6">
-                                            <input type="file" name="ijazah" class="form-control" id="ijazah" required>
+                                            <input type="file" name="ijazah" class="form-control" id="ijazah" accept=".jpg, .jpeg, .png, .pdf" required>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="akta" class="col-sm-4 col-form-label">Akta Kelahiran</label>
                                         <div class="col-sm-6">
-                                            <input type="file" name="akta" class="form-control" id="akta" required>
+                                            <input type="file" name="akta" class="form-control" id="akta" accept=".jpg, .jpeg, .png, .pdf" required>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="kk" class="col-sm-4 col-form-label">Kartu Keluarga</label>
                                         <div class="col-sm-6">
-                                            <input type="file" name="kk" class="form-control" id="kk" required>
+                                            <input type="file" name="kk" class="form-control" id="kk" accept=".jpg, .jpeg, .png, .pdf" required>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="photo" class="col-sm-4 col-form-label">Pas Photo 3X4 (Baju Sd)</label>
                                         <div class="col-sm-6">
-                                            <input type="file" name="photo" class="form-control" id="photo" required>
+                                            <input type="file" name="photo" class="form-control" id="photo" accept=".jpg, .jpeg, .png" required>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="kartu_vaksin" class="col-sm-4 col-form-label">Kartu Vaksin</label>
                                         <div class="col-sm-6">
-                                            <input type="file" name="kartu_vaksin" class="form-control" id="kartu_vaksin" required>
+                                            <input type="file" name="kartu_vaksin" class="form-control" id="kartu_vaksin" accept=".jpg, .jpeg, .png, .pdf" required>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="surat_pernyataan" class="col-sm-4 col-form-label">Surat Pernyataan</label>
                                         <div class="col-sm-6">
-                                            <input type="file" name="surat_pernyataan" class="form-control" id="surat_pernyataan" required>
+                                            <input type="file" name="surat_pernyataan" class="form-control" id="surat_pernyataan" accept=".jpg, .jpeg, .png, .pdf" required>
                                         </div>
                                     </div>
                                     <div class="form-group row">

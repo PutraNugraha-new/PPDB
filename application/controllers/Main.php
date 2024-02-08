@@ -765,7 +765,8 @@ class Main extends CI_Controller {
                         'nama_tk' => $this->input->post('nama_tk'),
                         'alamat_tk' => $this->input->post('alamat_tk'),
                         'tgl_sttb' => $this->input->post('tgl_sttb'),
-                        'no_sttb' => $this->input->post('no_sttb')
+                        'no_sttb' => $this->input->post('no_sttb'),
+                        'status' => "Verifikasi"
                     );
                 
                     $upload_data = array();

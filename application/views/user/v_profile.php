@@ -210,42 +210,42 @@
                                                     <td>
                                                         <small>Nama File : <span class="font-weight-bold text-warning"><?= empty($data->ijazah) ? 'Belum Ada' : 'Sudah Upload' ?> </span></small>
                                                         <input type="hidden" value="<?= $data->id_pendaftar ?>" name="id_pendaftar" class="form-control">
-                                                        <input type="file" name="ijazah" class="form-control">
+                                                        <input type="file" name="ijazah" class="form-control" accept=".jpg, .jpeg, .png, .pdf">
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row" style="width: 20%;">AKTA KELAHIRAN</th>
                                                     <td>
                                                         <small>Nama File : <span class="font-weight-bold text-warning"><?= empty($data->akta) ? 'Belum Ada' : 'Sudah Upload' ?> </span></small>
-                                                        <input type="file" name="akta" class="form-control">
+                                                        <input type="file" name="akta" class="form-control" accept=".jpg, .jpeg, .png, .pdf">
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row" style="width: 20%;">KARTU KELUARGA</th>
                                                     <td>
                                                         <small>Nama File : <span class="font-weight-bold text-warning"><?= empty($data->kk) ? 'Belum Ada' : 'Sudah Upload' ?> </span> </small>
-                                                        <input type="file" name="kk" class="form-control">
+                                                        <input type="file" name="kk" class="form-control" accept=".jpg, .jpeg, .png, .pdf">
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row" style="width: 20%;">PAS PHOTO UKURAN 3X4 (BAJU SD)</th>
                                                     <td>
                                                         <small>Nama File :<span class="font-weight-bold text-warning"><?= empty($data->photo) ? 'Belum Ada' : 'Sudah Upload' ?> </span> </small>
-                                                        <input type="file" name="photo" class="form-control">
+                                                        <input type="file" name="photo" class="form-control" accept=".jpg, .jpeg, .png">
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row" style="width: 20%;">Surat Pernyataan</th>
                                                     <td>
                                                         <small>Nama File : <span class="font-weight-bold text-warning"><?= empty($data->surat_pernyataan) ? 'Belum Ada' : 'Sudah Upload' ?> </span> </small>
-                                                        <input type="file" name="surat_pernyataan" class="form-control">
+                                                        <input type="file" name="surat_pernyataan" class="form-control" accept=".jpg, .jpeg, .png, .pdf">
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row" style="width: 20%;">KARTU VAKSIN (JIKA ADA)</th>
                                                     <td>
                                                         <small>Nama File : <span class="font-weight-bold text-warning"><?= empty($data->kartu_vaksin) ? 'Belum Ada' : 'Sudah Upload' ?> </span> </small>
-                                                        <input type="file" name="kartu_vaksin" class="form-control">
+                                                        <input type="file" name="kartu_vaksin" class="form-control" accept=".jpg, .jpeg, .png, .pdf">
                                                         <button class="btn btn-primary mt-3">Perbarui data</button>
                                                     </td>
                                                 </tr>

@@ -16,6 +16,12 @@ class M_pendaftaran extends CI_Model {
         $this->db->where('id_pendaftar', $id);
         return $this->db->get()->result();
     }
+    public function getDataedit($id){
+        $this->db->select('*');
+        $this->db->from('tb_pendaftaran');
+        $this->db->where('id_pendaftar', $id);
+        return $this->db->get()->row();
+    }
 
     public function getAll(){
         $this->db->select('*');
@@ -55,5 +61,26 @@ class M_pendaftaran extends CI_Model {
         } else {
             return false; // Gagal melakukan update karena data tidak lengkap
         }
+    }
+
+    public function edit($data)
+    {
+        if(!empty($data)){
+            $this->db->where('id_pendaftar',$data['id_pendaftar']);
+            $this->db->update('tb_pendaftaran',$data);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function count_status() {
+        $this->db->select('status, COUNT(*) as total');
+        $this->db->from('tb_pendaftaran');
+        $this->db->group_by('status');
+        return $this->db->get()->result();
+    }
+    public function count_records() {
+        return $this->db->count_all('tb_pendaftaran');
     }
 }

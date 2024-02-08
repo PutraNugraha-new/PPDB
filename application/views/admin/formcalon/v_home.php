@@ -102,9 +102,9 @@
                 <?php foreach ($pendaftar as $data): ?>
                 <tr>
                     <td>
-                        <a href="<?= base_url() ?>formcalon/deleteuser/<?= $data->id ?>" class="btn btn-danger p-1" onClick="return confirm('Yakin Ingin Menghapus Data?')">Hapus</a>
-                        <a href="<?= base_url() ?>formcalon/detail/<?= $data->id_pendaftar ?>" class="btn btn-primary p-1 m-1">Detail</a>
-                        <a href="<?= base_url() ?>formcalon/edit/<?= $data->id_pendaftar ?>" class="btn btn-success p-1 m-1">Edit</a>
+                        <a href="<?= base_url() ?>formcalon/deleteuser/<?= $data->id ?>" class="btn btn-danger " onClick="return confirm('Yakin Ingin Menghapus Data?')">Hapus</a>
+                        <a href="<?= base_url() ?>formcalon/detail/<?= $data->id_pendaftar ?>" class="btn btn-primary  m-1">Detail</a>
+                        <a href="<?= base_url() ?>formcalon/edit/<?= $data->id_pendaftar ?>" class="btn btn-success  m-1">Edit</a>
                     </td>
                     <td>
                         <select class="form-select status" data-id="<?= $data->id_pendaftar ?>">

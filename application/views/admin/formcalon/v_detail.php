@@ -125,7 +125,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <strong>Photo Siswa :</strong>
-                            <img src="<?= base_url() ?>berkasSiswa/<?= $data->photo ?>" class="img-fluid" alt="Tidak Ada">
+                            <img src="<?= base_url() ?>berkasSiswa/<?= $data->photo ?>" class="img-fluid" style="width:300px; height:400px;" alt="Tidak Ada">
                         </div>
                         <div class="col-md-4">
                             <ul>
