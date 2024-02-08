@@ -7,7 +7,7 @@
                         <div class="col-md-12 d-flex justify-content-around text-center flex-md-row flex-column">
                             <?php foreach($dataPendaftar as $data): ?>
                             <h4><?= $data->n_lengkap ?></h4>
-                            <span class="text-secondary">Status : <div class="badge <?= $data->status == 'Verifikasi' ? 'badge-danger' : 'badge-success'; ?>"><?= $data->status ?></div> </span> 
+                            <span class="text-secondary">Status : <div class="badge <?= $data->status == 'Verifikasi' || $data->status == 'Ditolak' ? 'badge-danger' : 'badge-success'; ?>"><?= $data->status ?></div> </span> 
                             <?php endforeach; ?>
                         </div>
                     </div>
@@ -232,6 +232,13 @@
                                                     <td>
                                                         <small>Nama File :<span class="font-weight-bold text-warning"><?= empty($data->photo) ? 'Belum Ada' : 'Sudah Upload' ?> </span> </small>
                                                         <input type="file" name="photo" class="form-control">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row" style="width: 20%;">Surat Pernyataan</th>
+                                                    <td>
+                                                        <small>Nama File : <span class="font-weight-bold text-warning"><?= empty($data->surat_pernyataan) ? 'Belum Ada' : 'Sudah Upload' ?> </span> </small>
+                                                        <input type="file" name="surat_pernyataan" class="form-control">
                                                     </td>
                                                 </tr>
                                                 <tr>

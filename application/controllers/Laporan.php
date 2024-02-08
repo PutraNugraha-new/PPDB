@@ -9,6 +9,7 @@ class Laporan extends CI_Controller {
     function __construct(){
         parent::__construct();
         $this->load->model('User_model', 'user_model', TRUE);
+        $this->load->model('M_laporan', 'M_laporan', TRUE);
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
         $this->status = $this->config->item('status');
@@ -36,6 +37,7 @@ class Laporan extends CI_Controller {
                 $data = array(
                     'title'=>'Laporan',
                     'isi'   =>  'admin/laporan/v_home',
+                    'status' => $this->M_laporan->cek_kelengkapan_data(),
                     'user' => 'Admin'
                 );
                 $this->load->view('admin/layout/v_wrapper', $data, FALSE);

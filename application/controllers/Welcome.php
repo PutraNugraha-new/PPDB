@@ -99,7 +99,7 @@ class Welcome extends CI_Controller {
             $tambah = array();
             
             // Loop through each file input
-            $berkas = array('ijazah', 'akta', 'kk', 'photo', 'kartu_vaksin');
+            $berkas = array('ijazah', 'akta', 'kk', 'photo', 'kartu_vaksin', 'surat_pernyataan');
             foreach ($berkas as $berkas_type) {
                 if (!empty($_FILES[$berkas_type]['name'])) {
                     $config['upload_path'] = './berkasSiswa/';

@@ -18,7 +18,7 @@
                     <h3>Tambah Calon Siswa</h3>
                 </div>
                 <div class="card-body">
-                    <form action="<?= base_url('main/adduserPengguna') ?>" method="POST">
+                    <form action="<?= base_url('main/adduserPengguna') ?>" method="POST" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
@@ -249,6 +249,42 @@
                                         <label for="no_sttb" class="col-sm-4 col-form-label">Nomor STTB</label>
                                         <div class="col-sm-6">
                                             <input type="text" name="no_sttb" class="form-control" id="no_sttb" placeholder="Nomor STTB"required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="ijazah" class="col-sm-4 col-form-label">Ijazah</label>
+                                        <div class="col-sm-6">
+                                            <input type="file" name="ijazah" class="form-control" id="ijazah" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="akta" class="col-sm-4 col-form-label">Akta Kelahiran</label>
+                                        <div class="col-sm-6">
+                                            <input type="file" name="akta" class="form-control" id="akta" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="kk" class="col-sm-4 col-form-label">Kartu Keluarga</label>
+                                        <div class="col-sm-6">
+                                            <input type="file" name="kk" class="form-control" id="kk" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="photo" class="col-sm-4 col-form-label">Pas Photo 3X4 (Baju Sd)</label>
+                                        <div class="col-sm-6">
+                                            <input type="file" name="photo" class="form-control" id="photo" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="kartu_vaksin" class="col-sm-4 col-form-label">Kartu Vaksin</label>
+                                        <div class="col-sm-6">
+                                            <input type="file" name="kartu_vaksin" class="form-control" id="kartu_vaksin" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="surat_pernyataan" class="col-sm-4 col-form-label">Surat Pernyataan</label>
+                                        <div class="col-sm-6">
+                                            <input type="file" name="surat_pernyataan" class="form-control" id="surat_pernyataan" required>
                                         </div>
                                     </div>
                                     <div class="form-group row">
