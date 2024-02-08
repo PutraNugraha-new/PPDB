@@ -74,6 +74,34 @@ class Formcalon extends CI_Controller {
             }
         }
     }
+    public function edit($id_pendaftar){
+        $data = $this->session->userdata;
+	    if(empty($data)){
+	        redirect(site_url().'main/login/');
+	    }
+
+	    //check user level
+	    if(empty($data['role'])){
+	        redirect(site_url().'main/login/');
+	    }
+        $dataLevel = $this->userlevel->checkLevel($data['role']);
+        //check user level
+        if(empty($this->session->userdata['email'])){
+            redirect(site_url().'main/login/');
+        }else{
+            if($dataLevel == 'is_admin'){
+                $data = array(
+                    'title'=>'Data Form Pendaftar',
+                    'isi'   =>  'admin/formcalon/v_edit',
+                    'user' => 'Admin',
+                    'id' => $id_pendaftar
+                );
+                $this->load->view('admin/layout/v_wrapper', $data, FALSE);
+            }else{
+                redirect('welcome');
+            }
+        }
+    }
 
     public function detail($id){
         $data = $this->session->userdata;
