@@ -203,46 +203,47 @@
                             <div class="table-responsive">
                                 <table class="table table-hover" style="width: 100%;">
                                     <tbody>
-                                        <form action="" method="post">
+                                        <?php echo form_open_multipart(site_url().'welcome/updateBerkas'); ?>
                                             <?php foreach ($dataPendaftar as $data): ?>
                                                 <tr>
                                                     <th scope="row" style="width: 20%;">IJAZAH TK DILEGALISIR</th>
                                                     <td>
-                                                        <small>Nama File :  </small>
+                                                        <small>Nama File : <span class="font-weight-bold text-warning"><?= empty($data->ijazah) ? 'Belum Ada' : 'Sudah Upload' ?> </span></small>
+                                                        <input type="hidden" value="<?= $data->id_pendaftar ?>" name="id_pendaftar" class="form-control">
                                                         <input type="file" name="ijazah" class="form-control">
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row" style="width: 20%;">AKTA KELAHIRAN</th>
                                                     <td>
-                                                        <small>Nama File :  </small>
+                                                        <small>Nama File : <span class="font-weight-bold text-warning"><?= empty($data->akta) ? 'Belum Ada' : 'Sudah Upload' ?> </span></small>
                                                         <input type="file" name="akta" class="form-control">
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row" style="width: 20%;">KARTU KELUARGA</th>
                                                     <td>
-                                                        <small>Nama File :  </small>
+                                                        <small>Nama File : <span class="font-weight-bold text-warning"><?= empty($data->kk) ? 'Belum Ada' : 'Sudah Upload' ?> </span> </small>
                                                         <input type="file" name="kk" class="form-control">
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row" style="width: 20%;">PAS PHOTO UKURAN 3X4 (BAJU SD)</th>
                                                     <td>
-                                                        <small>Nama File :  </small>
+                                                        <small>Nama File :<span class="font-weight-bold text-warning"><?= empty($data->photo) ? 'Belum Ada' : 'Sudah Upload' ?> </span> </small>
                                                         <input type="file" name="photo" class="form-control">
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th scope="row" style="width: 20%;">KARTU VAKSIN (JIKA ADA)</th>
                                                     <td>
-                                                        <small>Nama File :  </small>
+                                                        <small>Nama File : <span class="font-weight-bold text-warning"><?= empty($data->kartu_vaksin) ? 'Belum Ada' : 'Sudah Upload' ?> </span> </small>
                                                         <input type="file" name="kartu_vaksin" class="form-control">
                                                         <button class="btn btn-primary mt-3">Perbarui data</button>
                                                     </td>
                                                 </tr>
                                             <?php endforeach; ?>
-                                        </form>
+                                        <?php echo form_close(); ?>
                                     </tbody>
                                 </table>
                             </div>

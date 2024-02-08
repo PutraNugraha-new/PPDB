@@ -66,6 +66,7 @@ class Welcome extends CI_Controller {
                 'title' => 'Profile',
                 'isi' => 'user/v_profile',
                 'dataPendaftar' => $dataPendaftar,
+                // 'berkas' => $this->M_berkas->getData,
                 'cek' => $session['role']
             );
             $this->load->view('user/layout/v_wrapper',$data, FALSE);
@@ -84,6 +85,58 @@ class Welcome extends CI_Controller {
             redirect('welcome','refresh');
         }
     }
+
+    public function updateBerkas(){
+        $session = $this->session->userdata;
+        if(empty($session['email'])){
+            redirect('welcome','refresh');
+        } else {
+            $id_pendaftar = $this->input->post('id_pendaftar');
+            
+            $upload_data = array();
+            
+            // Inisialisasi array untuk menyimpan nama berkas yang di-upload
+            $tambah = array();
+            
+            // Loop through each file input
+            $berkas = array('ijazah', 'akta', 'kk', 'photo', 'kartu_vaksin');
+            foreach ($berkas as $berkas_type) {
+                if (!empty($_FILES[$berkas_type]['name'])) {
+                    $config['upload_path'] = './berkasSiswa/';
+                    $config['allowed_types'] = 'jpg|png|jpeg|pdf|docx|doc';
+                    $config['max_size']  = 10000; 
+        
+                    $this->load->library('upload', $config);
+                    $this->upload->initialize($config);
+        
+                    if (!$this->upload->do_upload($berkas_type)) {
+                        $error = array('error' => $this->upload->display_errors());
+                        $this->session->set_flashdata('error_message', $error['error']);
+                        redirect('welcome/profile/', 'refresh');
+                    } else {
+                        $upload_data[$berkas_type] = $this->upload->data();
+                        $nama_file_acak = random_string('alnum', 16);
+                        $extension = pathinfo($_FILES[$berkas_type]['name'], PATHINFO_EXTENSION);
+                        $nama_file_akhir = $nama_file_acak . '.' . $extension;
+                        rename($upload_data[$berkas_type]['full_path'], $config['upload_path'] . $nama_file_akhir);
+                        // Menyimpan nama berkas yang diacak ke dalam array
+                        $tambah[$berkas_type] = $nama_file_akhir;
+                    }
+                }
+            }
+            
+            // Insert to database jika ada berkas yang di-upload
+            if (!empty($tambah)) {
+                $this->M_pendaftaran->updateBerkas($id_pendaftar, $tambah);
+                $this->session->set_flashdata('success_message', 'Berhasil Mengupload Berkas');
+            } else {
+                $this->session->set_flashdata('error_message', 'Tidak ada berkas yang di-upload');
+            }
+            
+            redirect(site_url().'welcome/profile/');
+        }
+    }
+    
 
     public function registration() {
         // Periksa apakah request merupakan request POST

@@ -11,6 +11,7 @@ class M_pendaftaran extends CI_Model {
         return $this->db->get()->result();
     
     }
+
     public function getAll(){
         $this->db->select('*');
         $this->db->from('tb_pendaftaran');
@@ -76,5 +77,16 @@ class M_pendaftaran extends CI_Model {
 
         $this->db->where('id_pendaftar', $id_detail);
         $this->db->update('tb_pendaftaran', $data);
+    }
+    public function updateBerkas($id_pendaftar, $berkas) {
+        // Pastikan id_pendaftar dan $berkas tidak kosong
+        if (!empty($id_pendaftar) && !empty($berkas)) {
+            // Lakukan update berkas berdasarkan id_pendaftar
+            $this->db->where('id_pendaftar', $id_pendaftar);
+            $this->db->update('tb_pendaftaran', $berkas);
+            return true; // Berhasil melakukan update
+        } else {
+            return false; // Gagal melakukan update karena data tidak lengkap
+        }
     }
 }
