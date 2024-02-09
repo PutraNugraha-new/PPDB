@@ -15,6 +15,7 @@ class Dashboard extends CI_Controller {
         $this->status = $this->config->item('status');
         $this->roles = $this->config->item('roles');
         $this->load->library('userlevel');
+
     }
 
 	public function index()
@@ -38,7 +39,10 @@ class Dashboard extends CI_Controller {
                     'title'=>'Dashboard',
                     'isi'   =>  'admin/dashboard/v_home',
                     'user' => 'Admin',
-                    'counts' => $this->M_pendaftaran->count_status(),
+                    'verifikasi' => $this->M_pendaftaran->count_verifikasi(),
+                    'count_lolos' => $this->M_pendaftaran->count_lolos(),
+                    'count_diterima' => $this->M_pendaftaran->count_diterima(),
+                    'count_tidak_diterima' => $this->M_pendaftaran->count_tidak_diterima(),
                     'countAll' => $this->M_pendaftaran->count_records()
                 );
                 // var_dump($data);

@@ -74,12 +74,26 @@ class M_pendaftaran extends CI_Model {
         }
     }
 
-    public function count_status() {
-        $this->db->select('status, COUNT(*) as total');
-        $this->db->from('tb_pendaftaran');
-        $this->db->group_by('status');
-        return $this->db->get()->result();
+    public function count_verifikasi() {
+        $this->db->where('status', 'Verifikasi');
+        return $this->db->count_all_results('tb_pendaftaran');
     }
+
+    public function count_lolos() {
+        $this->db->where('status', 'Lolos');
+        return $this->db->count_all_results('tb_pendaftaran');
+    }
+
+    public function count_diterima() {
+        $this->db->where('status', 'Diterima');
+        return $this->db->count_all_results('tb_pendaftaran');
+    }
+
+    public function count_tidak_diterima() {
+        $this->db->where('status', 'Ditolak');
+        return $this->db->count_all_results('tb_pendaftaran');
+    }
+
     public function count_records() {
         return $this->db->count_all('tb_pendaftaran');
     }

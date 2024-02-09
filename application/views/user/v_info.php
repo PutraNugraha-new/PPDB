@@ -1,37 +1,27 @@
 <div class="container informasi">
     <div class="row">
         <div class="col-md-12">
-            <h3>INFORMASI PPDB</h3>
+            <h3>Informasi Sekolah Dasar Negeri 01 Kampuri</h3>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
-            <div class="list-group">
-                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                    <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">List group item heading</h5>
-                    <small>3 days ago</small>
+            <?php foreach($info as $data): ?>
+                <?php if($data->status == 'Tampil'): ?>
+                <div href="#" class="card">
+                    <div class="card-body flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1"><?= $data->nama_info ?></h5>
+                            <small>Update : <?= $data->tgl_info ?></small>
+                        </div>
+                        <p class="mb-1"><?= $data->deskripsi ?></p>
+                        <?php if(!empty($data->file_info)): ?>
+                            <a href="<?= base_url() ?>fileInfo/<?= $data->file_info ?>" class="text-left">Unduh File</a>
+                        <?php endif; ?>
                     </div>
-                    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                    <small>Donec id elit non mi porta.</small>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                    <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">List group item heading</h5>
-                    <small class="text-muted">3 days ago</small>
-                    </div>
-                    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                    <small class="text-muted">Donec id elit non mi porta.</small>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                    <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">List group item heading</h5>
-                    <small class="text-muted">3 days ago</small>
-                    </div>
-                    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                    <small class="text-muted">Donec id elit non mi porta.</small>
-                </a>
-            </div>
+                </div>
+                <?php endif; ?>
+            <?php  endforeach;?>
         </div>
     </div>
 </div>

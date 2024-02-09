@@ -1,174 +1,137 @@
-<?php if ($this->session->flashdata('success_message')): ?>
-                    <div class="alert alert-success alert-dismissible fade show mt-1" role="alert">
-                        <?= $this->session->flashdata('success_message'); ?>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                <?php endif; ?>
-                <?php if ($this->session->flashdata('error_message')): ?>
-                    <div class="alert alert-danger alert-dismissible fade show mt-1" role="alert">
-                        <?= $this->session->flashdata('error_message'); ?>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                <?php endif; ?>
+<h3 class="my-4">Input User</h3>
+<div class="card">
+    <div class="card-body">
+        <?php echo form_open(site_url().'main/adduserPenggunaAdmin'); ?>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="username" class="col-sm-4 col-form-label">Username</label>
+                    <input type="text" class="form-control" id="email" name="email">
+                    <?php echo form_error('email');?>
+                </div>
+                <div class="col-md-4">
+                    <label for="password" class="col-sm-4 col-form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="password">
+                    <?php echo form_error('password') ?>
+                </div>
+                <div class="col-md-4">
+                    <label for="passconf" class="col-sm-12 col-form-label">Konfirmasi Password</label>
+                    <input type="password" class="form-control" id="passconf" name="passconf">
+                    <?php echo form_error('passconf') ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="first_name" class="col-sm-6 col-form-label">Nama Pengguna</label>
+                    <input type="text" class="form-control" id="first_name" name="first_name">
+                    <?php echo form_error('firstname');?>
+                    <?php echo form_submit(array('value'=>'Tambah Pengguna', 'class'=>'btn btn-success mx-auto my-2')); ?>
+                </div>
+            </div>
+        <?php echo form_close(); ?>
+    </div>
+</div>
 <div class="card mt-3">
     <div class="card-header">
-        <h4>Daftar Pengguna</h4>
+        <h4>Data Pengguna</h4>
     </div>
     <div class="card-body">
-        <div class="row">
-            <div class="col-md-3">
-                <a href="<?= base_url() ?>formcalon/tambah" class="btn btn-primary mb-3">
-                    <i class="fa-solid fa-circle-plus"></i>
-                    Tambah Data
-                </a>
-            </div>
-        </div>
         <table id="datatablesSimple">
             <thead>
                 <tr>
+                    <th>No</th>
+                    <th>Email</th>
+                    <th>Nama Pengguna</th>
                     <th>Aksi</th>
-                    <th>
-                        <div class="col-12">Status Pendaftar</div>
-                    </th>
-                    <th>Nama Lengkap</th>
-                    <th>Nama Panggilan</th>
-                    <th>Jenis Kelamin</th>
-                    <th>Tempat Tanggal Lahir</th>
-                    <th>Agama</th>
-                    <th>Kewarganegaraan</th>
-                    <th>Anak ke</th>
-                    <th>Jumlah Saudara</th>
-                    <th>Bahasa Sehari-hari</th>
-                    <th>Berat Badan</th>
-                    <th>Tinggi Badan</th>
-                    <th>Golongan Darah</th>
-                    <th>Riwayat Penyakit</th>
-                    <th>Alamat Tempat Tinggal</th>
-                    <th>Nomor HP</th>
-                    <th>Jarak Tempat Tinggal</th>
-                    <th>Nama Ayah</th>
-                    <th>Nama Ibu</th>
-                    <th>Pendidikan Ayah</th>
-                    <th>Pendidikan Ibu</th>
-                    <th>Pekerjaan Ayah</th>
-                    <th>Pekerjaan Ibu</th>
-                    <th>Nama Wali</th>
-                    <th>Pendidikan Wali</th>
-                    <th>Pekerjaan Wali</th>
-                    <th>Asal Sekolah</th>
-                    <th>Nama TK</th>
-                    <th>Alamat TK</th>
-                    <th>Tanggal STTB</th>
-                    <th>Nomor STTB</th>
                 </tr>
             </thead>
             <tfoot>
                 <tr>
+                    <th>No</th>
+                    <th>Email</th>
+                    <th>Nama Pengguna</th>
                     <th>Aksi</th>
-                    <th><div class="col-12">Status Pendaftar</div></th>
-                    <th>Nama Lengkap</th>
-                    <th>Nama Panggilan</th>
-                    <th>Jenis Kelamin</th>
-                    <th>Tempat Tanggal Lahir</th>
-                    <th>Agama</th>
-                    <th>Kewarganegaraan</th>
-                    <th>Anak ke</th>
-                    <th>Jumlah Saudara</th>
-                    <th>Bahasa Sehari-hari</th>
-                    <th>Berat Badan</th>
-                    <th>Tinggi Badan</th>
-                    <th>Golongan Darah</th>
-                    <th>Riwayat Penyakit</th>
-                    <th>Alamat Tempat Tinggal</th>
-                    <th>Nomor HP</th>
-                    <th>Jarak Tempat Tinggal</th>
-                    <th>Nama Ayah</th>
-                    <th>Nama Ibu</th>
-                    <th>Pendidikan Ayah</th>
-                    <th>Pendidikan Ibu</th>
-                    <th>Pekerjaan Ayah</th>
-                    <th>Pekerjaan Ibu</th>
-                    <th>Nama Wali</th>
-                    <th>Pendidikan Wali</th>
-                    <th>Pekerjaan Wali</th>
-                    <th>Asal Sekolah</th>
-                    <th>Nama TK</th>
-                    <th>Alamat TK</th>
-                    <th>Tanggal STTB</th>
-                    <th>Nomor STTB</th>
                 </tr>
             </tfoot>
             <tbody>
-                <?php foreach ($pendaftar as $data): ?>
+                <?php $no=1; foreach($pengguna as $data): ?>
                 <tr>
+                    <td><?= $no; ?></td>
+                    <td><?= $data->email ?></td>
+                    <td><?= $data->first_name ?></td>
                     <td>
-                        <a href="<?= base_url() ?>formcalon/deleteuser/<?= $data->id ?>" class="btn btn-danger" onClick="return confirm('Yakin Ingin Menghapus Data?')">Hapus</a>
+                        <a href="#" data-bs-toggle="modal" data-id="<?= $data->id ?>" data-bs-target="#modalproduk" class="btn tampilModalUbah btn-primary p-1" data-toggle="tooltip" data-placement="bottom" title="Edit Data">
+                            <i class="fa-solid fa-pencil"></i>
+                        </a>
+                        <a href="<?= base_url() ?>main/delete/<?= $data->id ?>" class="btn btn-danger p-1" onClick="return confirm('ingin menghapus user?')" data-toggle="tooltip" data-placement="bottom" title="Hapus Data">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
                     </td>
-                    <td>
-                        <select class="form-select status" data-id="<?= $data->id_pendaftar ?>">
-                            <option value="Verifikasi" <?= ($data->status == 'Verifikasi') ? 'selected' : '' ?>>Verifikasi</option>
-                            <option value="Lolos" <?= ($data->status == 'Lolos') ? 'selected' : '' ?>>Lolos</option>
-                            <option value="Diterima" <?= ($data->status == 'Diterima') ? 'selected' : '' ?>>Diterima</option>
-                            <option value="Ditolak" <?= ($data->status == 'Ditolak') ? 'selected' : '' ?>>Ditolak</option>
-                        </select>
-                    </td>
-                    <td><?= $data->n_lengkap ?></td>
-                    <td><?= $data->n_panggilan ?></td>
-                    <td> <?= $data->jk == 'lk' ? 'Laki - Laki' : 'Perempuan'; ?></td>
-                    <td><?= $data->tempat_lahir ?>/ <?= $data->tgl_lahir ?></td>
-                    <td><?= $data->agama ?></td>
-                    <td><?= $data->kewarganegaraan ?></td>
-                    <td><?= $data->anak_ke ?></td>
-                    <td><?= $data->jml_saudara ?></td>
-                    <td><?= $data->bahasa_seharihari ?></td>
-                    <td><?= $data->berat_bdn ?></td>
-                    <td><?= $data->tinggi_bdn ?></td>
-                    <td><?= $data->golongan_darah ?></td>
-                    <td><?= $data->riwayat_penyakit ?></td>
-                    <td><?= $data->alamat_tt ?></td>
-                    <td><?= $data->no_hp ?></td>
-                    <td><?= $data->jarak_tt ?></td>
-                    <td><?= $data->nama_ayah ?></td>
-                    <td><?= $data->nama_ibu ?></td>
-                    <td><?= $data->pendidikan_ayah ?></td>
-                    <td><?= $data->pendidikan_ibu ?></td>
-                    <td><?= $data->pekerjaan_ayah ?></td>
-                    <td><?= $data->pekerjaan_ibu ?></td>
-                    <td><?= $data->nama_wali ?></td>
-                    <td><?= $data->pendidikan_wali ?></td>
-                    <td><?= $data->pekerjaan_wali ?></td>
-                    <td><?= $data->asal_sekolah ?></td>
-                    <td><?= $data->nama_tk ?></td>
-                    <td><?= $data->alamat_tk ?></td>
-                    <td><?= $data->tgl_sttb ?></td>
-                    <td><?= $data->no_sttb ?></td>
                 </tr>
-                <?php endforeach; ?>
+                <?php $no++; endforeach; ?>
             </tbody>
         </table>
     </div>
 </div>
 
+<!-- modal -->
+<div class="modal fade" id="modalproduk" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Data Pengguna</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="main/update" class="form form-horizontal" method="POST">
+                    <div class="form-body">
+                    <div class="row">
+                            <div class="col-md-4">
+                                <label for="first_name">Nama Pengguna</label>
+                            </div>
+                            <div class="col-md-8">
+                                <input type="hidden" name="id" id="id">
+                                <input type="text" class="form-control first_name" placeholder="Nama Pengguna" name="first_name" id="first_name" required>
+                                <?php echo form_error('first_name', '<div class="alert alert-danger" role="alert">', '</div>') ?>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="role">Role</label>
+                            </div>
+                            <div class="col-md-8 mt-4">
+                                <select name="role" id="role" class="form-control">
+                                    <option value="1">Admin</option>
+                                    <option value="2">User</option>
+                                </select>
+                                <?php echo form_error('role', '<div class="alert alert-danger" role="alert">', '</div>') ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <div class="modal-footer">
+                <button type="reset" class="btn btn-success me-1 mb-1">Reset</button>
+                <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
+                <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     $(document).ready(function() {
-        $('.status').on('change', function() {
-            var id = $(this).data('id');
-            var newStatus = $(this).val();
+        $('.tampilModalUbah').on('click', function() {
+            const id = $(this).data('id');
 
             $.ajax({
-                url: '<?= base_url("formcalon/updatestatus") ?>',
-                data: {
-                    id : id,
-                    status: newStatus
-                },
+                url: 'main/edit',
+                data: {id : id},
                 method: 'post',
                 dataType:'json',
-                success:function(response){
-                    console.log(response);
-                    location.reload();
-                }, 
-                error: function (xhr, status, error) {
-                    console.error("Error: " + status, error);
+                success:function(data){
+                    console.log(data);
+
+                    $('#id').val(data.id);
+                    $('.first_name').val(data.first_name);
+                    $('#role').val(data.role);
                 }
             });
         });

@@ -820,6 +820,55 @@ class Main extends CI_Controller {
         }
     }
 
+    public function delete($id)
+    {
+        $this->user_model->deleteUser($id);
+
+        $this->session->set_flashdata('success_message', 'Data Berhasil Dihapus');
+        redirect('pengguna ', 'refresh');
+    }
+
+    //add new user from backend
+    public function adduserPenggunaAdmin()
+    {
+        $this->form_validation->set_rules('first_name', 'First Name', 'required');
+        $this->form_validation->set_rules('email', 'email', 'required');
+        $this->form_validation->set_rules('password', 'Password', 'required|min_length[5]');
+        $this->form_validation->set_rules('passconf', 'Password Confirmation', 'required|matches[password]');
+
+        if ($this->form_validation->run() == FALSE) {
+            redirect(site_url().'pengguna');
+        }else{
+            if($this->user_model->isDuplicate($this->input->post('email'))){
+                $this->session->set_flashdata('flash_message', 'Username sudah digunakan');
+                redirect(site_url().'pengguna');
+            }else{
+                $this->load->library('password');
+                $post = $this->input->post(NULL, TRUE);
+                $cleanPost = $this->security->xss_clean($post);
+                $hashed = $this->password->create_hash($cleanPost['password']);
+                $cleanPost['email'] = $this->input->post('email');
+                $cleanPost['first_name'] = $this->input->post('first_name');
+                $cleanPost['banned_users'] = 'unban';
+                $cleanPost['role'] = '2';
+                $cleanPost['password'] = $hashed;
+                unset($cleanPost['passconf']);
+                
+
+                // var_dump($cleanPost);
+                // die();
+                //insert to database
+                if(!$this->user_model->addUser($cleanPost)){
+                    $this->session->set_flashdata('flash_message', 'ada masalah ketika menambahkan data');
+                }else{
+                    $this->session->set_flashdata('success_message', 'Pengguna berhasil ditambahkan.');
+                }
+                redirect(site_url().'pengguna');
+            };
+        }
+    }
+
+
     //Logout
     public function logout()
     {
@@ -930,6 +979,46 @@ class Main extends CI_Controller {
 
     }
 
+    public function update(){
+        $data = $this->session->userdata;
+        if(empty($data['role'])){
+	        redirect(site_url().'login/login/');
+	    }
+
+        //check user level
+	    if(empty($data['role'])){
+	        redirect(site_url().'login/login/');
+	    }
+	    $dataLevel = $this->userlevel->checkLevel($data['role']);
+	    //check user level
+
+	    //check is admin or not
+	    if($dataLevel == "is_admin"){
+            $this->form_validation->set_rules('id', 'ID', 'required');
+            $this->form_validation->set_rules('role', 'Role', 'required');
+            $this->form_validation->set_rules('first_name', 'Nama Pengguna', 'required');
+
+            if ($this->form_validation->run() == FALSE) {
+                redirect('pengguna','refresh');
+            }else{
+                $id = $this->input->post('id');
+                    $edit = [
+                        'id' => $id,
+                        'first_name' => $this->input->post('first_name'),
+                        'role' => $this->input->post('role'),
+                    ];
+
+                    //update to database
+                    $this->user_model->edit($edit);
+                    $this->session->set_flashdata('success_message', 'Berhasil Edit Data.');
+                    redirect(site_url().'pengguna');
+            }
+	    }else{
+	        redirect(site_url().'pengguna/');
+	    }
+    }
+
+
     //reset password
     public function reset_password()
     {
@@ -973,6 +1062,13 @@ class Main extends CI_Controller {
             redirect(site_url().'main/checkLoginUser');
         }
     }
+
+    public function edit() {
+        // header('Content-Type: application/json');
+        echo json_encode($this->user_model->getData($_POST['id']));
+        exit;
+    }
+
 
     public function base64url_encode($data) {
       return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');

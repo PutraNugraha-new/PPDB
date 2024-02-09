@@ -138,6 +138,14 @@ class User_model extends CI_Model {
         $user_info = $this->getUserInfo($post['user_id']); 
         return $user_info; 
     }
+
+    public function getData($id){
+        $this->db->select('*');
+        $this->db->from('users');
+        $this->db->where('id', $id);
+        return $this->db->get()->row();
+    }
+    
     
     //check login
     public function checkLogin($post)
@@ -205,7 +213,7 @@ class User_model extends CI_Model {
     public function addUser($d)
     {  
             $string = array(
-                'first_name'=>$d['firstname'],
+                'first_name'=>$d['first_name'],
                 'last_name'=>$d['lastname'],
                 'email'=>$d['email'],
                 'password'=>$d['password'], 
@@ -329,5 +337,12 @@ class User_model extends CI_Model {
     {
         $this->db->where('id',$data['id']);
         $this->db->update('users',$data);
+    }
+
+    
+    public function allData(){
+        $this->db->select('*');
+        $this->db->from('users');
+        return $this->db->get()->result();
     }
 }

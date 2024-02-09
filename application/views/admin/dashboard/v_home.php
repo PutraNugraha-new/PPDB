@@ -1,52 +1,48 @@
-<!-- <ol class="breadcrumb mb-4">
+<h1 class="mt-4">Dashboard</h1>
+<ol class="breadcrumb mb-4">
     <li class="breadcrumb-item active">Dashboard</li>
-</ol> -->
-<div class="row justify-content-evenly mt-2">
-    <div class="col-xl-2 col-md-2">
+</ol>
+<div class="row justify-content-between">
+    <div class="col-xl-2 col-md-6">
+        <div class="card bg-primary text-white mb-4">
+            <div class="card-body"> <?= $countAll ?> pendaftar</div>
+            <div class="card-footer p-1 bg-light d-flex align-items-center justify-content-between">
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-2 col-md-6">
         <div class="card bg-warning text-white mb-4">
-            <div class="card-body">
-                <h5>
-                    Pendaftar <?= $countAll ?>
-                </h5>
+            <div class="card-body"><?= $verifikasi ?> Verifikasi</div>
+            <div class="card-footer p-1 bg-light d-flex align-items-center justify-content-between">
             </div>
         </div>
     </div>
-    <?php foreach($counts as $count): ?>
-    <div class="col-xl-2 col-md-2">
-        <div class="card 
-        <?php 
-            switch ($count->status) {
-                case 'Verifikasi':
-                    echo 'bg-secondary';
-                    break;
-                case 'Lolos':
-                    echo 'bg-success';
-                    break;
-                case 'Diterima':
-                    echo 'bg-primary';
-                    break;
-                case 'Ditolak':
-                    echo 'bg-danger';
-                    break;
-                default:
-                    echo 'bg-secondary'; // Default background jika status tidak sesuai
-            }
-        ?>
-        text-white mb-4">
-            <div class="card-body">
-                <h5>
-                    <?= $count->status ?> <?= $count->total ?>
-                </h5>
+    <div class="col-xl-2 col-md-6">
+        <div class="card bg-success text-white mb-4">
+            <div class="card-body"><?= $count_lolos ?> Lolos</div>
+            <div class="card-footer p-1 bg-light d-flex align-items-center justify-content-between">
             </div>
         </div>
     </div>
-    <?php endforeach; ?>
-
+    <div class="col-xl-2 col-md-6">
+        <div class="card bg-info text-white mb-4">
+            <div class="card-body"><?= $count_diterima ?> Diterima</div>
+            <div class="card-footer p-1 bg-light d-flex align-items-center justify-content-between">
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-2 col-md-6">
+        <div class="card bg-danger text-white mb-4">
+            <div class="card-body"><?= $count_tidak_diterima ?> Ditolak</div>
+            <div class="card-footer p-1 bg-light d-flex align-items-center justify-content-between">
+            </div>
+        </div>
+    </div>
 </div>
 <div class="card mb-4 bg-primary">
     <div class="card-body">
         <h1 class="text-light my-3 mt-4">
-            Selamat Datang Admin!
+            Selamat Datang <?= $this->session->userdata['first_name'] ?>!
         </h1>
         <p class="text-light my-3">Website PPDB SDN 1 Kampuri</p>
     </div>

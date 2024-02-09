@@ -32,10 +32,10 @@
                                 Kelola Data Calon Peserta Didik
                             </a>
                             <div class="sb-sidenav-menu-heading">Option</div>
-                            <!-- <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'pengguna' ? 'active' : '') ?>" href="<?= base_url() ?>pengguna">
+                            <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'pengguna' ? 'active' : '') ?>" href="<?= base_url() ?>pengguna">
                                 <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
                                 Data Pengguna
-                            </a> -->
+                            </a>
                             <a class="nav-link text-danger" href="<?php echo base_url().'main/logout' ?>" onClick="return confirm('Apakah Anda Ingin Keluar Aplikasi ?')">
                                 <div class="sb-nav-link-icon"><i class="fas fa-sign-out-alt text-danger"></i></div>
                                 Logout
@@ -44,7 +44,7 @@
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">Login Sebagai:</div>
-                        <?= $user; ?>
+                        <?= $this->session->userdata['first_name'] ?>
                     </div>
                 </nav>
             </div>

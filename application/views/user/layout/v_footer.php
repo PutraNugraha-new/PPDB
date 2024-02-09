@@ -1,19 +1,38 @@
     <footer>
-        <div class="container my-3">
-            <div class="row d-flex justify-content-center">
-                <div class="col-md-4 mt-2">
-                    <div class="card">
-                        <div class="card-body">
-                            <p>Jumlah Terdaftar</p>
-                            <p>50</p>
+        <div class="container-fluid my-3">
+            <div class="row justify-content-between">
+                <div class="col-xl-2 col-md-6">
+                    <div class="card bg-primary text-white mb-4">
+                        <div class="card-body"> <?= $countAll ?> pendaftar</div>
+                        <div class="card-footer p-1 bg-light d-flex align-items-center justify-content-between">
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mt-2">
-                    <div class="card">
-                        <div class="card-body">
-                            <p>Jumlah Terverifikasi</p>
-                            <p>50</p>
+                <div class="col-xl-2 col-md-6">
+                    <div class="card bg-warning text-white mb-4">
+                        <div class="card-body"><?= $verifikasi ?> Verifikasi</div>
+                        <div class="card-footer p-1 bg-light d-flex align-items-center justify-content-between">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-md-6">
+                    <div class="card bg-success text-white mb-4">
+                        <div class="card-body"><?= $count_lolos ?> Lolos</div>
+                        <div class="card-footer p-1 bg-light d-flex align-items-center justify-content-between">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-md-6">
+                    <div class="card bg-info text-white mb-4">
+                        <div class="card-body"><?= $count_diterima ?> Diterima</div>
+                        <div class="card-footer p-1 bg-light d-flex align-items-center justify-content-between">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-md-6">
+                    <div class="card bg-danger text-white mb-4">
+                        <div class="card-body"><?= $count_tidak_diterima ?> Ditolak</div>
+                        <div class="card-footer p-1 bg-light d-flex align-items-center justify-content-between">
                         </div>
                     </div>
                 </div>

@@ -10,11 +10,18 @@ class Welcome extends CI_Controller {
         parent::__construct();
         $this->load->model('User_model', 'user_model', TRUE);
         $this->load->model('M_pendaftaran', 'M_pendaftaran', TRUE);
+        $this->load->model('M_info', 'M_info', TRUE);
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
         $this->status = $this->config->item('status');
         $this->roles = $this->config->item('roles');
         $this->load->library('userlevel');
+
+        $this->jumlah['verifikasi'] = $this->M_pendaftaran->count_verifikasi();
+        $this->jumlah['count_lolos'] = $this->M_pendaftaran->count_lolos();
+        $this->jumlah['count_diterima'] = $this->M_pendaftaran->count_diterima();
+        $this->jumlah['count_tidak_diterima'] = $this->M_pendaftaran->count_tidak_diterima();
+        $this->jumlah['countAll'] = $this->M_pendaftaran->count_records();
     }
 
 	public function index()
@@ -35,6 +42,7 @@ class Welcome extends CI_Controller {
         }
         // var_dump($data['cek']);
         // die();
+        $data = array_merge($data, $this->jumlah);
         $this->load->view('user/layout/v_wrapper', $data, FALSE);
     }
 
@@ -44,15 +52,18 @@ class Welcome extends CI_Controller {
             $data = array(
                 'title' => 'Informasi',
                 'isi'   => 'user/v_info',
+                'info' => $this->M_info->getAll()
             );
         }else{
             $data = array(
                 'title' => 'Informasi',
                 'isi'   => 'user/v_info',
-                'cek' => $session['role']
+                'cek' => $session['role'],
+                'info' => $this->M_info->getAll()
             );
         }
-        $this->load->view('user/layout/v_wrapper',$data,FALSE);
+        $data = array_merge($data, $this->jumlah);
+        $this->load->view('user/layout/v_wrapper', $data,FALSE);
     }
 
     public function profile(){
@@ -69,7 +80,8 @@ class Welcome extends CI_Controller {
                 // 'berkas' => $this->M_berkas->getData,
                 'cek' => $session['role']
             );
-            $this->load->view('user/layout/v_wrapper',$data, FALSE);
+            $data = array_merge($data, $this->jumlah);
+            $this->load->view('user/layout/v_wrapper', $data, FALSE);
         }
     }
 
@@ -80,6 +92,7 @@ class Welcome extends CI_Controller {
                 'title' => 'Pendaftaran',
                 'isi' => 'user/v_daftar'
             );
+            $data = array_merge($data, $this->jumlah);
             $this->load->view('user/layout/v_wrapper', $data, FALSE);
         }else{
             redirect('welcome','refresh');
@@ -196,6 +209,7 @@ class Welcome extends CI_Controller {
             'title' => 'Informasi',
             'isi'   => 'user/v_login',
         );
-        $this->load->view('user/layout/v_wrapper',$data,FALSE);
+        $data = array_merge($data, $this->jumlah);
+        $this->load->view('user/layout/v_wrapper', $data,FALSE);
     }
 }

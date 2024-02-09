@@ -37,6 +37,7 @@ class Pengguna extends CI_Controller {
                 $data = array(
                     'title'=>'Data Form Pendaftar',
                     'isi'   =>  'admin/pengguna/v_home',
+                    'pengguna' => $this->user_model->allData(),
                     'user' => 'Admin'
                 );
                 $this->load->view('admin/layout/v_wrapper', $data, FALSE);
