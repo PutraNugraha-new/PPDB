@@ -1,6 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+use Dompdf\Dompdf;
+use Dompdf\Options;
+require_once FCPATH . 'vendor/autoload.php';
+
 class Formcalon extends CI_Controller {
 
     public $status;
@@ -15,6 +19,11 @@ class Formcalon extends CI_Controller {
         $this->status = $this->config->item('status');
         $this->roles = $this->config->item('roles');
         $this->load->library('userlevel');
+
+        $options = new Options();
+        $options->set('isRemoteEnabled', true);
+        $options->set('defaultFont', 'Times New Roman');
+        $dompdf = new Dompdf($options);
     }
 
 	public function index()
@@ -38,6 +47,7 @@ class Formcalon extends CI_Controller {
                     'title'=>'Data Form Pendaftar',
                     'isi'   =>  'admin/formcalon/v_home',
                     'pendaftar' => $this->M_pendaftaran->getAll(),
+                    'status' => $this->M_pendaftaran->ambilStatus(),
                     'user' => 'Admin'
                 );
                 $this->load->view('admin/layout/v_wrapper', $data, FALSE);
@@ -290,6 +300,110 @@ class Formcalon extends CI_Controller {
                 // Redirect ke halaman formcalon
             }else{
                 redirect('welcome');
+            }
+        }
+    }
+
+    public function getData() {
+        $data = $this->session->userdata;
+	    if(empty($data)){
+	        redirect(site_url().'main/login/');
+	    }
+
+	    //check user level
+	    if(empty($data['role'])){
+	        redirect(site_url().'main/login/');
+	    }
+	    $dataLevel = $this->userlevel->checkLevel($data['role']);
+	    //check user level
+        if(empty($this->session->userdata['email'])){
+            redirect(site_url().'main/login/');
+        }else{
+            if($dataLevel == "is_admin"){
+                $status = $this->input->get('status');
+    
+                // ---------------
+                if (!empty($status)) {
+                    // Menampilkan semua data
+                    $data = array(
+                        'title'=>'Data Form Pendaftar',
+                        'isi'   =>  'admin/formcalon/v_home',
+                        'status' => $this->M_pendaftaran->ambilStatus(),
+                        'pendaftar' => $this->M_pendaftaran->get_filtered_data($status),
+                    );
+                } else {
+                    // Kondisi default jika tidak ada form yang terisi
+                    $data = array(
+                        'title'=>'Data Form Pendaftar',
+                        'isi'   =>  'admin/formcalon/v_home',
+                        'status' => $this->M_pendaftaran->ambilStatus(),
+                        'pendaftar' => $this->M_pendaftaran->getAll(),
+                    );
+                }
+                $this->load->view('admin/layout/v_wrapper', $data, FALSE);
+            }else{
+                
+                redirect('welcome','refresh');
+                
+            }
+        }
+    }
+
+    public function cetakLaporan(){
+        $data = $this->session->userdata;
+        if(empty($data)){
+            redirect(site_url().'main/login/');
+        }
+    
+        //check user level
+        if(empty($data['role'])){
+            redirect(site_url().'main/login/');
+        }
+        $dataLevel = $this->userlevel->checkLevel($data['role']);
+        // var_dump($dataLevel);
+        // die();
+        //check user level
+        if(empty($this->session->userdata['email'])){
+            redirect(site_url().'main/login/');
+        }else{
+            if($dataLevel == "is_admin"){
+                $status = $this->input->get('status');
+    
+                // ---------------
+                if (!empty($status)) {
+                    // Mengirimkan flashdata jika hanya salah satu form tanggal yang terisi
+                    $data = array(
+                        'pendaftar' => $this->M_pendaftaran->get_filtered_dataStatus($status),
+                    );
+                } else {
+                    // Kondisi default jika tidak ada form yang terisi
+                    $data = array(
+                        'pendaftar' => $this->M_pendaftaran->getAll(),
+                    );
+                }
+        
+        
+                // Load library Dompdf
+                $options = new Options();
+                $options->set('isHtml5ParserEnabled', true);
+                $options->set('isPhpEnabled', true);
+                $options->set('isRemoteEnabled', true);
+        
+                $dompdf = new Dompdf($options);
+        
+                $html = $this->load->view('admin/formcalon/v_laporan', $data, true);
+                $dompdf->loadHtml($html);
+        
+                $dompdf->setPaper('A4', 'portrait');
+        
+                // Render PDF (stream to browser atau save ke file)
+                $dompdf->render();
+                $nama_file_acak = random_string('alnum', 16);
+                $dompdf->stream($nama_file_acak . '.pdf', array('Attachment' => 0));
+            }else{
+                
+                redirect('dashboard','refresh');
+                
             }
         }
     }

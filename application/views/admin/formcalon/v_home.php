@@ -23,6 +23,29 @@
                 </a>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <form action="<?= base_url() ?>formcalon/getData" method="get">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label for="end_date">Status :</label>
+                            <select name="status" id="status" class="form-control">
+                                <option value="">-- status --</option>
+                                <?php foreach($status as $data): ?>
+                                    <option value="<?= $data->status ?>"><?= $data->status ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                            <br>
+                            <button type="submit" id="filter_button" class="btn btn-primary">Tampilkan</button>
+                            <button type="reset" class="btn btn-danger">Batal</button>
+                            <a href="<?= base_url() ?>formcalon/cetakLaporan?status=<?= $this->input->get('status') ?>" class="btn btn-success my-2">Cetak</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
         <table id="datatablesSimple">
             <thead>
                 <tr>

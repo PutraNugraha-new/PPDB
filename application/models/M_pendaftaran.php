@@ -97,4 +97,24 @@ class M_pendaftaran extends CI_Model {
     public function count_records() {
         return $this->db->count_all('tb_pendaftaran');
     }
+
+    public function get_filtered_data($status) {
+        // Fetch filtered data based on start and end date
+        $this->db->like('status', $status);
+        $query = $this->db->get('tb_pendaftaran');
+        return $query->result();
+    }
+
+    public function ambilStatus(){
+        $this->db->select('status');
+        $this->db->from('tb_pendaftaran');
+        return $this->db->get()->result();
+    }
+
+    public function get_filtered_dataStatus($status) {
+        // Fetch filtered data based on start and end date
+        $this->db->like('status', $status);
+        $query = $this->db->get('tb_pendaftaran');
+        return $query->result();
+    }
 }
