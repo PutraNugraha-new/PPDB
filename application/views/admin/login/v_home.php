@@ -24,7 +24,7 @@
     </div>
 <?php endif; ?>
     <div class="container my-3 d-flex justify-content-center">
-        <div class="card login shadow bg-light">
+        <div class="card login bg-light">
             <div class="card-body">
                 <p class="text-center font-weight-bold">Login</p>
                 <p class="text-center font-weight-bold">SDN 1 Kampuri</p>

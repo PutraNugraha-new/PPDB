@@ -39,12 +39,12 @@
         </div>
     </div>
 </div>
-<div class="card mb-4 bg-primary">
+<div class="card mb-4 bg-light shadow border-start border-1 border-primary">
     <div class="card-body">
-        <h1 class="text-light my-3 mt-4">
-            Selamat Datang <?= $this->session->userdata['first_name'] ?>!
+        <h1 class=" my-3 mt-4">
+            Selamat Datang <?= $this->session->userdata['first_name'] ?>
         </h1>
-        <p class="text-light my-3">Website PPDB SDN 1 Kampuri</p>
+        <p class=" my-3">Website PPDB SDN 1 Kampuri</p>
     </div>
 </div>
 <div class="container">

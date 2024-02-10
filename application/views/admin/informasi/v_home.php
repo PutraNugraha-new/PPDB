@@ -81,7 +81,7 @@
                         </div>
                     </td>
                     <td>
-                        <a href="#" data-bs-toggle="modal" data-id="<?= $data->id_informasi ?>" data-bs-target="#modalInformasi" class="btn tampilModalUbah btn-primary p-1" data-toggle="tooltip" data-placement="bottom" title="Edit Data">
+                        <a href="#" data-bs-toggle="modal" data-id="<?= $data->id_informasi ?>" data-bs-target="#modalInformasi" class="btn tampilModalUbah btn-primary p-1 my-2" data-toggle="tooltip" data-placement="bottom" title="Edit Data">
                             Edit
                         </a>
                         <a href="<?= base_url() ?>informasi/delete/<?= $data->id_informasi ?>" class="btn btn-danger p-1" data-toggle="tooltip" data-placement="bottom" title="Hapus Data" onClick="return confirm('Ingin Menghapus?')">

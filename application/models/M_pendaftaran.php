@@ -35,7 +35,8 @@ class M_pendaftaran extends CI_Model {
         // Masukkan data pendaftaran ke dalam tabel pendaftaran
         $this->db->insert('tb_pendaftaran', $data);
 
-        return true; // Berhasil menambahkan pendaftaran
+        $new_data = $this->db->get_where('users', ['id' => $id])->row_array();
+        return $new_data; // Berhasil menambahkan pendaftaran
     }
 
     public function delete($id) {
