@@ -24,36 +24,40 @@
     </div>
 <?php endif; ?>
     <div class="container my-3 d-flex justify-content-center">
-        <div class="card login bg-light">
-            <div class="card-body">
-                <p class="text-center font-weight-bold">Login</p>
-                <p class="text-center font-weight-bold">SDN 1 Kampuri</p>
-                <?php $fattr = array('class' => 'form-signin');
-                    echo form_open(site_url().'main/login/', $fattr); 
-                ?>
-                <div class="form-group">
-                    <?php echo form_input(array(
-                        'name'=>'email', 
-                        'id'=> 'email', 
-                        'placeholder'=>'Username', 
-                        'class'=>'form-control mx-auto',  
-                        'value'=> set_value('email'))); ?>
-                    <?php echo form_error('email', '<div class="alert alert-danger" role="alert">', '</div>') ?>
+        <div class="row">
+            <div class="col-12">
+                <div class="card login bg-light">
+                    <div class="card-body">
+                        <p class="text-center font-weight-bold">Login</p>
+                        <p class="text-center font-weight-bold">SDN 1 Kampuri</p>
+                        <?php $fattr = array('class' => 'form-signin');
+                            echo form_open(site_url().'main/login/', $fattr); 
+                        ?>
+                        <div class="form-group">
+                            <?php echo form_input(array(
+                                'name'=>'email', 
+                                'id'=> 'email', 
+                                'placeholder'=>'Username', 
+                                'class'=>'form-control mx-auto',  
+                                'value'=> set_value('email'))); ?>
+                            <?php echo form_error('email', '<div class="alert alert-danger" role="alert">', '</div>') ?>
+                        </div>
+                        <div class="form-group">
+                            <?php echo form_password(array(
+                                'name'=>'password',
+                                'type' => 'password',
+                                'id'=> 'password', 
+                                'placeholder'=>'Password', 
+                                'class'=>'form-control mx-auto', 
+                                'placeholder'=>'Password',
+                                'value'=> set_value('password'))); ?>
+                            <?php echo form_error('password', '<div class="alert alert-danger" role="alert">', '</div>') ?>
+                        </div>
+                        <?php 
+                            echo form_submit(array('value'=>'Login', 'class'=>'btn btn-primary mx-auto btn-block')); ?>
+                        <?php echo form_close(); ?>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <?php echo form_password(array(
-                        'name'=>'password',
-                        'type' => 'password',
-                        'id'=> 'password', 
-                        'placeholder'=>'Password', 
-                        'class'=>'form-control mx-auto', 
-                        'placeholder'=>'Password',
-                        'value'=> set_value('password'))); ?>
-                    <?php echo form_error('password', '<div class="alert alert-danger" role="alert">', '</div>') ?>
-                </div>
-                <?php 
-                    echo form_submit(array('value'=>'Login', 'class'=>'btn btn-primary mx-auto btn-block')); ?>
-                <?php echo form_close(); ?>
             </div>
         </div>
     </div>

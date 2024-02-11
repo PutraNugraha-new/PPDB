@@ -5,7 +5,7 @@
     margin-bottom: 6.25em !important;
 }
 .login{
-    width: 40%;
+    width: 100%;
 }
 .login p:nth-child(1), p:nth-child(2){
     font-size: 20pt;

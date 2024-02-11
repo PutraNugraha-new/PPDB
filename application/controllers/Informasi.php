@@ -15,6 +15,7 @@ class Informasi extends CI_Controller {
         $this->status = $this->config->item('status');
         $this->roles = $this->config->item('roles');
         $this->load->library('userlevel');
+        
     }
 
 	public function index()
@@ -233,18 +234,22 @@ class Informasi extends CI_Controller {
     public function delete($id_pendaftar)
     {
         $ambil = $this->M_info->getData($id_pendaftar);
-
+    
         $name = './fileInfo/'.$ambil->file_info;
         
-
-        // Hapus produk
-        if(is_readable($name) && unlink($name)){
-            $this->M_info->delete($id_pendaftar);
-
-            $this->session->set_flashdata('success_message', 'Data Berhasil Dihapus');
-            redirect('informasi ', 'refresh');
+        // Periksa apakah $name adalah sebuah file
+        if(is_file($name)){
+            // Hapus file
+            if(unlink($name)) {
+                $this->M_info->delete($id_pendaftar);
+                $this->session->set_flashdata('success_message', 'Data Berhasil Dihapus');
+            } else {
+                $this->session->set_flashdata('error_message', 'Gagal menghapus file');
+            }
         } else {
-            echo "Hapus Gagal";
+            $this->M_info->delete($id_pendaftar);
+            $this->session->set_flashdata('success_message', 'Data Berhasil Dihapus');
         }
+        redirect('informasi', 'refresh');
     }
 }

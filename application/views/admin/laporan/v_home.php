@@ -1,6 +1,7 @@
 <div class="card mt-3">
-    <div class="card-header">
+    <div class="card-header d-flex justify-content-between">
         <h4>Laporan</h4>
+        <a href="<?= base_url(); ?>laporan/cetakExcel" class="btn btn-success">Cetak Excel</a>
     </div>
     <div class="card-body">
         <!-- <form action="<?= base_url() ?>lhu/getData" method="get" class="mb-3">
