@@ -32,6 +32,10 @@
                                     <?php echo form_error('password');?>
                                 </div>
                                 <input type="submit" class="next action-button rounded" value="Login"/>
+                                <p>
+                                    Lupa Password ?
+                                    <a href="<?= base_url() ?>users/forgot">Klik Disini</a>
+                                </p>
                             </fieldset>
                         </form>
                     </div>

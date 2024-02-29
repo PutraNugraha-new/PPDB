@@ -15,6 +15,12 @@ class Users extends CI_Controller {
         $this->status = $this->config->item('status');
         $this->roles = $this->config->item('roles');
         $this->load->library('userlevel');
+
+        $this->jumlah['verifikasi'] = $this->M_pendaftaran->count_verifikasi();
+        $this->jumlah['count_lolos'] = $this->M_pendaftaran->count_lolos();
+        $this->jumlah['count_diterima'] = $this->M_pendaftaran->count_diterima();
+        $this->jumlah['count_tidak_diterima'] = $this->M_pendaftaran->count_tidak_diterima();
+        $this->jumlah['countAll'] = $this->M_pendaftaran->count_records();
     }
 
     //index dasboard
@@ -45,10 +51,9 @@ class Users extends CI_Controller {
 	public function checkLoginUser(){
 	     //user data from session
 	    $data = $this->session->userdata;
-	    if(empty($data)){
+	    if(empty($data['email'])){
 	        redirect(site_url().'users/login/');
 	    }
-	    
 	$this->load->library('user_agent');
         $browser = $this->agent->browser();
         $os = $this->agent->platform();
@@ -400,102 +405,121 @@ class Users extends CI_Controller {
         $data['title'] = "Forgot Password";
         $this->load->library('curl');
         $this->load->library('recaptcha');
-        $this->form_validation->set_rules('email', 'email', 'required|valid_email');
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
         
         $result = $this->user_model->getAllSettings();
         $sTl = $result->site_title;
         $data['recaptcha'] = $result->recaptcha;
 
         if($this->form_validation->run() == FALSE) {
-            $this->load->view('header', $data);
-            $this->load->view('container');
-            $this->load->view('forgot');
-            $this->load->view('footer');
+            redirect(site_url().'welcome/forgot');
         }else{
             $email = $this->input->post('email');
             $clean = $this->security->xss_clean($email);
-            $userInfo = $this->user_model->getUserInfoByemail($clean);
+            $userInfo = $this->user_model->getUserInfoByEmail($clean);
 
             if(!$userInfo){
-                $this->session->set_flashdata('flash_message', 'We cant find your email address');
-                redirect(site_url().'users/login');
+                $this->session->set_flashdata('flash_message', 'Email Address Tidak Terdaftar');
+                redirect(site_url().'users/forgot');
             }
 
             if($userInfo->status != $this->status[1]){ //if status is not approved
-                $this->session->set_flashdata('flash_message', 'Your account is not in approved status');
+                $this->session->set_flashdata('flash_message', 'Akun Kamu Belum di Approved');
                 redirect(site_url().'users/login');
             }
 
-            if($data['recaptcha'] == 'yes'){
-                //recaptcha
-                $recaptchaResponse = $this->input->post('g-recaptcha-response');
-                $userIp = $_SERVER['REMOTE_ADDR'];
-                $key = $this->recaptcha->secret;
-                $url = "https://www.google.com/recaptcha/api/siteverify?secret=".$key."&response=".$recaptchaResponse."&remoteip=".$userIp; //link
-                $response = $this->curl->simple_get($url);
-                $status= json_decode($response, true);
-    
-                //recaptcha check
-                if($status['success']){
-    
-                    //generate token
-                    $token = $this->user_model->insertToken($userInfo->id);
-                    $qstring = $this->base64url_encode($token);
-                    $url = site_url() . 'users/reset_password/token/' . $qstring;
-                    $link = '<a href="' . $url . '">' . $url . '</a>';
-    
-                    $this->load->library('email');
-                    $this->load->library('sendmail');
-                    
-                    $message = $this->sendmail->sendForgot($this->input->post('lastname'),$this->input->post('email'),$link,$sTl);
-                    $to_email = $this->input->post('email');
-                    $this->email->from($this->config->item('forgot'), 'Reset Password! ' . $this->input->post('firstname') .' '. $this->input->post('lastname')); //from sender, title email
-                    $this->email->to($to_email);
-                    $this->email->subject('Reset Password');
-                    $this->email->message($message);
-                    $this->email->set_mailtype("html");
-    
-                    if($this->email->send()){
-                        redirect(site_url().'users/successresetpassword/');
-                    }else{
-                        $this->session->set_flashdata('flash_message', 'There was a problem sending an email.');
-                        exit;
-                    }
-                }else{
-                    //recaptcha failed
-                    $this->session->set_flashdata('flash_message', 'Error...! Google Recaptcha UnSuccessful!');
-                    redirect(site_url().'users/register/');
-                    exit;
-                }
-            }else{
-                //generate token
-                $token = $this->user_model->insertToken($userInfo->id);
-                $qstring = $this->base64url_encode($token);
-                $url = site_url() . 'users/reset_password/token/' . $qstring;
-                $link = '<a href="' . $url . '">' . $url . '</a>';
+            //generate token
+            $token = $this->user_model->insertToken($userInfo->id);
+            $qstring = $this->base64url_encode($token);
+            $url = site_url() . 'users/reset_password/token/' . $qstring;
+            $link = '<a href="' . $url . '">' . $url . '</a>';
 
-                $this->load->library('email');
-                $this->load->library('sendmail');
-                
-                $message = $this->sendmail->sendForgot($this->input->post('lastname'),$this->input->post('email'),$link,$sTl);
-                $to_email = $this->input->post('email');
-                $this->email->from($this->config->item('forgot'), 'Reset Password! ' . $this->input->post('firstname') .' '. $this->input->post('lastname')); //from sender, title email
-                $this->email->to($to_email);
-                $this->email->subject('Reset Password');
-                $this->email->message($message);
-                $this->email->set_mailtype("html");
-
-                if($this->email->send()){
-                    redirect(site_url().'users/successresetpassword/');
-                }else{
-                    $this->session->set_flashdata('flash_message', 'There was a problem sending an email.');
-                    exit;
-                }
-            }
+            $this->load->library('email');
+            $this->load->library('sendmail');
             
+            $message = $this->sendmail->sendForgot($this->input->post('lastname'),$this->input->post('email'),$link,$sTl);
+            $to_email = $this->input->post('email');
+            $this->email->from($this->config->item('forgot'), 'Reset Password! ' . $this->input->post('firstname') .' '. $this->input->post('lastname')); //from sender, title email
+            // Pengaturan email
+            $config['protocol'] = 'smtp';
+            $config['smtp_host'] = 'smtp.gmail.com';
+            $config['smtp_port'] = 587;
+            $config['smtp_user'] = 'simpandrive803@gmail.com'; // Ganti dengan alamat email Anda
+            $config['smtp_pass'] = 'tleydnzevvrvmbda'; // Ganti dengan kata sandi email Anda
+            $config['smtp_crypto'] = 'tls';
+            $config['charset'] = 'utf-8';
+            $config['mailtype'] = 'html';
+            $config['newline'] = "\r\n";
+        
+            // Load konfigurasi email
+            $this->email->initialize($config);
+            // Pengaturan email
+            $this->email->from('simpandrive803@gmail.com', 'Admin'); // Ganti dengan alamat email dan nama Anda
+            $this->email->to($to_email); // Ganti dengan alamat email penerima
+            
+            $this->email->subject('Reset Password');
+            $this->email->message($message);
+
+            if($this->email->send()){
+                redirect(site_url().'users/successresetpassword/');
+            }else{
+                $this->session->set_flashdata('flash_message', 'There was a problem sending an email.');
+                exit;
+            }
         }
 
     }
+
+    public function reset_password()
+    {
+        $token = $this->base64url_decode($this->uri->segment(4));
+        $cleanToken = $this->security->xss_clean($token);
+        $user_info = $this->user_model->isTokenValid($cleanToken); //either false or array();
+
+        if(!$user_info){
+            $this->session->set_flashdata('flash_message', 'Token is invalid or expired');
+            redirect(site_url().'users/login');
+        }
+        $dataa = array(
+            'firstName'=> $user_info->first_name,
+            'email'=>$user_info->email,
+            //'user_id'=>$user_info->id,
+            'token'=>$this->base64url_encode($token)
+        );
+
+        $data['title'] = "Reset Password";
+        $this->form_validation->set_rules('password', 'Password', 'required|min_length[5]');
+        $this->form_validation->set_rules('passconf', 'Password Confirmation', 'required|matches[password]');
+
+        if ($this->form_validation->run() == FALSE) {
+            $data = array(
+                'title' => 'Reset Password',
+                'isi' => 'user/reset-pass'
+            );
+            $data = array_merge($data,$dataa, $this->jumlah);
+            $this->load->view('user/layout/v_wrapper', $data, FALSE);
+        }else{
+            $this->load->library('password');
+            $post = $this->input->post(NULL, TRUE);
+            $cleanPost = $this->security->xss_clean($post);
+            $hashed = $this->password->create_hash($cleanPost['password']);
+            $cleanPost['password'] = $hashed;
+            $cleanPost['user_id'] = $user_info->id;
+            unset($cleanPost['passconf']);
+            if(!$this->user_model->updatePassword($cleanPost)){
+                $this->session->set_flashdata('flash_message', 'There was a problem updating your password');
+            }else{
+                $this->session->set_flashdata('success_message', 'Your password has been updated. You may now login');
+            }
+            redirect(site_url().'users/checkLoginUser');
+        }
+    }
+
+     // if success after set password
+     public function successresetpassword()
+     {
+        redirect(site_url().'welcome/pass_info');
+     }
 
     public function base64url_encode($data) {
       return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');

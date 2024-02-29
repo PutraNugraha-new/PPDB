@@ -98,6 +98,45 @@ class Welcome extends CI_Controller {
             redirect('welcome','refresh');
         }
     }
+    public function forgot(){
+        $session = $this->session->userdata;
+        if(empty($session['email'])){
+            $data = array(
+                'title' => 'Lupa Password',
+                'isi' => 'user/v_forgot'
+            );
+            $data = array_merge($data, $this->jumlah);
+            $this->load->view('user/layout/v_wrapper', $data, FALSE);
+        }else{
+            redirect('welcome','refresh');
+        }
+    }
+    public function pass_info(){
+        $session = $this->session->userdata;
+        if(empty($session['email'])){
+            $data = array(
+                'title' => 'Lupa Password',
+                'isi' => 'user/reset-pass-info'
+            );
+            $data = array_merge($data, $this->jumlah);
+            $this->load->view('user/layout/v_wrapper', $data, FALSE);
+        }else{
+            redirect('welcome','refresh');
+        }
+    }
+    public function reset_pass(){
+        $session = $this->session->userdata;
+        if(empty($session['email'])){
+            $data = array(
+                'title' => 'Reset Password',
+                'isi' => 'user/reset-pass'
+            );
+            $data = array_merge($data, $this->jumlah);
+            $this->load->view('user/layout/v_wrapper', $data, FALSE);
+        }else{
+            redirect('welcome','refresh');
+        }
+    }
 
     public function updateBerkas(){
         $session = $this->session->userdata;
