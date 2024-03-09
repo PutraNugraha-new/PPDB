@@ -54,16 +54,16 @@ class Users extends CI_Controller {
 	    if(empty($data['email'])){
 	        redirect(site_url().'users/login/');
 	    }
-	$this->load->library('user_agent');
+        $this->load->library('user_agent');
         $browser = $this->agent->browser();
         $os = $this->agent->platform();
         $getip = $this->input->ip_address();
         
         $result = $this->user_model->getAllSettings();
         $stLe = $result->site_title;
-	$tz = $result->timezone;
+        $tz = $result->timezone;
 	    
-	$now = new DateTime();
+        $now = new DateTime();
         $now->setTimezone(new DateTimezone($tz));
         $dTod =  $now->format('Y-m-d');
         $dTim =  $now->format('H:i:s');
@@ -110,62 +110,6 @@ class Users extends CI_Controller {
             $this->input->set_cookie($setLogin, TRUE);
             redirect(site_url().'users/');
         }
-	}
-	
-	public function settings(){
-	    $data = $this->session->userdata;
-        if(empty($data['role'])){
-	        redirect(site_url().'users/login/');
-	    }
-	    $dataLevel = $this->userlevel->checkLevel($data['role']);
-	    //check user level
-
-        $data['title'] = "Settings";
-        $this->form_validation->set_rules('site_title', 'Site Title', 'required');
-        $this->form_validation->set_rules('timezone', 'Timezone', 'required');
-        $this->form_validation->set_rules('recaptcha', 'Recaptcha', 'required');
-        $this->form_validation->set_rules('theme', 'Theme', 'required');
-
-        $result = $this->user_model->getAllSettings();
-        $data['id'] = $result->id;
-	    $data['site_title'] = $result->site_title;
-	    $data['timezone'] = $result->timezone;
-	    
-	    if (!empty($data['timezone']))
-	    {
-	        $data['timezonevalue'] = $result->timezone;
-	        $data['timezone'] = $result->timezone;
-	    }
-	    else
-	    {
-	        $data['timezonevalue'] = "";
-            $data['timezone'] = "Select a time zone";
-	    }
-	    
-	    if($dataLevel == "is_admin"){
-            if ($this->form_validation->run() == FALSE) {
-                $this->load->view('header', $data);
-                $this->load->view('navbar', $data);
-                $this->load->view('container');
-                $this->load->view('settings', $data);
-                $this->load->view('footer');
-            }else{
-                $post = $this->input->post(NULL, TRUE);
-                $cleanPost = $this->security->xss_clean($post);
-                $cleanPost['id'] = $this->input->post('id');
-                $cleanPost['site_title'] = $this->input->post('site_title');
-                $cleanPost['timezone'] = $this->input->post('timezone');
-                $cleanPost['recaptcha'] = $this->input->post('recaptcha');
-                $cleanPost['theme'] = $this->input->post('theme');
-    
-                if(!$this->user_model->settings($cleanPost)){
-                    $this->session->set_flashdata('flash_message', 'There was a problem updating your data!');
-                }else{
-                    $this->session->set_flashdata('success_message', 'Your data has been updated.');
-                }
-                redirect(site_url().'users/settings/');
-            }
-	    }
 	}
 
     public function adduserPengguna()
@@ -313,9 +257,6 @@ class Users extends CI_Controller {
             $this->load->library('recaptcha');
             $this->form_validation->set_rules('email', 'email', 'required');
             $this->form_validation->set_rules('password', 'Password', 'required');
-            
-            $result = $this->user_model->getAllSettings();
-            $data['recaptcha'] = $result->recaptcha;
 
             if($this->form_validation->run() == FALSE) {
                 redirect(site_url().'welcome/login');
@@ -324,69 +265,29 @@ class Users extends CI_Controller {
                 $clean = $this->security->xss_clean($post);
                 $userInfo = $this->user_model->checkLogin($clean);
                 
-                if($data['recaptcha'] == 'yes'){
-                    //recaptcha
-                    $recaptchaResponse = $this->input->post('g-recaptcha-response');
-                    $userIp = $_SERVER['REMOTE_ADDR'];
-                    $key = $this->recaptcha->secret;
-                    $url = "https://www.google.com/recaptcha/api/siteverify?secret=".$key."&response=".$recaptchaResponse."&remoteip=".$userIp; //link
-                    $response = $this->curl->simple_get($url);
-                    $status= json_decode($response, true);
-    
-                    if(!$userInfo)
-                    {
-                        $this->session->set_flashdata('flash_message', 'Wrong password or email.');
-                        redirect(site_url().'users/login');
+
+                if(!$userInfo)
+                {
+                    $this->session->set_flashdata('flash_message', 'Wrong password or email.');
+                    redirect(site_url().'users/login');
+                }
+                elseif($userInfo->banned_users == "ban")
+                {
+                    $this->session->set_flashdata('danger_message', 'You’re temporarily banned from our website!');
+                    redirect(site_url().'users/login');
+                }
+                elseif($userInfo && $userInfo->banned_users == "unban") //recaptcha check, success login, ban or unban
+                {
+                    foreach($userInfo as $key=>$val){
+                    $this->session->set_userdata($key, $val);
                     }
-                    elseif($userInfo->banned_users == "ban")
-                    {
-                        $this->session->set_flashdata('danger_message', 'You’re temporarily banned from our website!');
-                        redirect(site_url().'users/login');
-                    }
-                    else if(!$status['success'])
-                    {
-                        //recaptcha failed
-                        $this->session->set_flashdata('flash_message', 'Error...! Google Recaptcha UnSuccessful!');
-                        redirect(site_url().'users/login/');
-                        exit;
-                    }
-                    elseif($status['success'] && $userInfo && $userInfo->banned_users == "unban") //recaptcha check, success login, ban or unban
-                    {
-                        foreach($userInfo as $key=>$val){
-                        $this->session->set_userdata($key, $val);
-                        }
-                        redirect(site_url().'users/checkLoginUser/');
-                    }
-                    else
-                    {
-                        $this->session->set_flashdata('flash_message', 'Something Error!');
-                        redirect(site_url().'users/login/');
-                        exit;
-                    }
-                }else{
-                    if(!$userInfo)
-                    {
-                        $this->session->set_flashdata('flash_message', 'Wrong password or email.');
-                        redirect(site_url().'users/login');
-                    }
-                    elseif($userInfo->banned_users == "ban")
-                    {
-                        $this->session->set_flashdata('danger_message', 'You’re temporarily banned from our website!');
-                        redirect(site_url().'users/login');
-                    }
-                    elseif($userInfo && $userInfo->banned_users == "unban") //recaptcha check, success login, ban or unban
-                    {
-                        foreach($userInfo as $key=>$val){
-                        $this->session->set_userdata($key, $val);
-                        }
-                        redirect(site_url().'users/checkLoginUser/');
-                    }
-                    else
-                    {
-                        $this->session->set_flashdata('flash_message', 'Something Error!');
-                        redirect(site_url().'users/login/');
-                        exit;
-                    }
+                    redirect(site_url().'users/');
+                }
+                else
+                {
+                    $this->session->set_flashdata('flash_message', 'Something Error!');
+                    redirect(site_url().'users/login/');
+                    exit;
                 }
             }
 	    }
@@ -406,10 +307,6 @@ class Users extends CI_Controller {
         $this->load->library('curl');
         $this->load->library('recaptcha');
         $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
-        
-        $result = $this->user_model->getAllSettings();
-        $sTl = $result->site_title;
-        $data['recaptcha'] = $result->recaptcha;
 
         if($this->form_validation->run() == FALSE) {
             redirect(site_url().'welcome/forgot');
@@ -437,7 +334,7 @@ class Users extends CI_Controller {
             $this->load->library('email');
             $this->load->library('sendmail');
             
-            $message = $this->sendmail->sendForgot($this->input->post('lastname'),$this->input->post('email'),$link,$sTl);
+            $message = $this->sendmail->sendForgot($this->input->post('lastname'),$this->input->post('email'),$link,'SDN 1 Kampuri');
             $to_email = $this->input->post('email');
             $this->email->from($this->config->item('forgot'), 'Reset Password! ' . $this->input->post('firstname') .' '. $this->input->post('lastname')); //from sender, title email
             // Pengaturan email
@@ -511,7 +408,7 @@ class Users extends CI_Controller {
             }else{
                 $this->session->set_flashdata('success_message', 'Your password has been updated. You may now login');
             }
-            redirect(site_url().'users/checkLoginUser');
+            redirect(site_url().'welcome/login');
         }
     }
 
